@@ -25,8 +25,8 @@ def users_login(request, template_name='users/login.html'):
             else:
                 # TODO: add error message to form
                 return HttpResponse('nieprawidłowe dane!')
-        else:
-            form = LoginForm()
+    else:
+        form = LoginForm()
 
     context = {
         'form': form,
