@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # custom blood_pressure_monitor apps
-    'users',
+    'accounts',
 ]
 
 MIDDLEWARE = [
