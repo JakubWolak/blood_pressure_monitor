@@ -2,9 +2,16 @@
 
 {% block content %}
 
+{% if form.errors %}
+    {% for error in errors %}
+        wystąpił błąd {{ error.message }}
+    {% endfor %}
+{% endif %}
+
 <form method='POST' action='{% url 'users:login' %}'>
     {% csrf_token %}
     {{ form.as_p }}
+    <input type='hidden' name='text' value='{{ next }}' />
     <button type='submit'>Zaloguj</button>
 </form>
 
