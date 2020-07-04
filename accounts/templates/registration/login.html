@@ -1,0 +1,18 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+
+{% if form.errors %}
+    {% for error in errors %}
+        wystąpił błąd {{ error.message }}
+    {% endfor %}
+{% endif %}
+
+<form method='POST' action='{% url 'accounts:login' %}'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type='hidden' name='text' value='{{ next }}' />
+    <button type='submit'>Zaloguj</button>
+</form>
+
+{% endblock content %}
