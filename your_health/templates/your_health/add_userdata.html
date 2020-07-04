@@ -1,0 +1,13 @@
+{% extends 'homepage/base.html' %}
+
+{% block title %}
+    Dodaj swoje dane
+{% endblock title %}
+
+
+{% block content %}
+    <form method='POST' aciton='{% url 'your_health:add_data' %}'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type='submit'>Zapisz</button>
+{% endblock content %}
