@@ -21,6 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # custom blood_pressure_monitor urls
+    # homepage app
+    path('', include('homepage.urls')),
+
     # accounts app
     path('accounts/', include('accounts.urls')),
 ]

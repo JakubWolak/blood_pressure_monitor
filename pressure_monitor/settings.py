@@ -38,9 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
+    # 3rd part apps
+    'bootstrap4',
+
+
     # custom blood_pressure_monitor apps
     'accounts',
     'your_health',
+    'homepage',
 ]
 
 MIDDLEWARE = [
@@ -121,4 +127,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/homepage/static/'
