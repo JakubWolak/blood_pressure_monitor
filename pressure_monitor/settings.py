@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
+    # 3rd part apps
+    'bootstrap4',
+
+
     # custom blood_pressure_monitor apps
     'accounts',
     'homepage',
