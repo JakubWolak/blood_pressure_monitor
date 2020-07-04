@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from .decorators import userdata_exists
+from .decorators import *
 from .forms import UserDataForm
 from .models import UserData
 
 
 @login_required
+@userdata_exists
 def add_userdata(request, template_name='your_health/add_userdata.html'):
     """
     creates new userdata
@@ -34,7 +35,7 @@ def add_userdata(request, template_name='your_health/add_userdata.html'):
 
 
 @login_required
-@userdata_exists
+@userdata_does_not_exists
 def edit_userdata(request, template_name='your_health/add_userdata.html'):
     """
     edits existing userdata
