@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # custom blood_pressure_monitor apps
     'accounts',
+    'your_health',
     'homepage',
 ]
 
