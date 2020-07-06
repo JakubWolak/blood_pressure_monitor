@@ -27,6 +27,9 @@ urlpatterns = [
     # accounts app
     path('accounts/', include('accounts.urls')),
 
+    # your_health app
+    path('your_health/', include('your_health.urls')),
+
     # measurements app
     path('measurements/', include('measurements.urls')),
 ]

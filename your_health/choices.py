@@ -1,5 +1,5 @@
 SEX = (
-    ('', 'Wybierz płeć')
+    ('', 'Wybierz płeć'),
     ('male', 'Mężczyzna'),
     ('female', 'Kobieta'),
 )

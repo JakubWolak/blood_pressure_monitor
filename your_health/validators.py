@@ -19,12 +19,12 @@ def max_height(height):
 def min_weight(weight):
     min_weight = 20
 
-    if weight > min_weight:
-        raise ValidationError(_('Minimalna waga to {0} kg!'.format(max_height)))
+    if weight < min_weight:
+        raise ValidationError(_('Minimalna waga to {0} kg!'.format(max_weight)))
 
 
 def max_weight(weight):
     max_weight = 300
 
     if weight > max_weight:
-        raise ValidationError(_('Maksymalna waga to {0} kg!'.format(max_height)))
+        raise ValidationError(_('Maksymalna waga to {0} kg!'.format(max_weight)))
