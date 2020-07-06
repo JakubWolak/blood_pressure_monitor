@@ -23,8 +23,11 @@ def userdata_exists(func):
     checks if userdata exists for user, if data exists, redirects to view that allows to edit this data
     """
     def check_and_call(request, *args, **kwargs):
-        if UserData.objects.get(user=request.user):
-            return redirect(reverse('your_health:edit_data'))
+        try:
+            UserData.objects.get(user=request.user)
+        except:
+            return func(request, *args, **kwargs)
 
-        return func(request, *args, **kwargs)
+        return redirect(reverse('your_health:edit_data'))
+        
     return check_and_call

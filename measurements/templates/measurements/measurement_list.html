@@ -3,9 +3,12 @@
 {% block content %}
 
 {% for measurement in object_list %}
+<p>
     {{ measurement.systolic_pressure }}
     {{ measurement.diastolic_pressure }}
     {{ measurement.pulse }}
+    {{ measurement.measurement_time }}
+    </p>
 {% empty %}
     Brak pomiarów
 {% endfor %}
