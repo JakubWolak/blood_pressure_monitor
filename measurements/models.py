@@ -1,6 +1,7 @@
 from django.db import models
 
 from your_health.models import UserData
+from .validators import *
 
 
 class Measurement(models.Model):
@@ -8,9 +9,12 @@ class Measurement(models.Model):
 
     measurement_time = models.DateTimeField(auto_now_add=True, editable=False)
 
-    systolic_pressure = models.SmallIntegerField(null=False, blank=False, default=120, verbose_name='Ciśnienie skurczowe')
-    diastolic_pressure = models.SmallIntegerField(null=False, blank=False, default=80, verbose_name='Ciśnienie rozkurczowe')
-    pulse = models.SmallIntegerField(null=False, blank=False, default=60, verbose_name='Tętno')
+    systolic_pressure = models.SmallIntegerField(null=False, blank=False, default=120, verbose_name='Ciśnienie skurczowe',
+        validators=[max_systolic_pressure, min_systolic_pressure])
+    diastolic_pressure = models.SmallIntegerField(null=False, blank=False, default=80, verbose_name='Ciśnienie rozkurczowe',
+        validators=[max_diastolic_pressure, min_diastolic_pressure])
+    pulse = models.SmallIntegerField(null=False, blank=False, default=60, verbose_name='Tętno',
+        validators=[max_pulse, min_pulse])
 
     class Meta:
         ordering = ['-measurement_time']
