@@ -10,7 +10,7 @@ from .forms import MeasurementCreateForm
 from .mixins import UserDataRequiredMixin
 from your_health.models import UserData
 
-# TODO: add custom mixin  "must have UserData!!!"
+
 class MeasurementCreate(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
     login_url = reverse_lazy('accounts:login')
     redirect_field_name = 'Zaloguj'
@@ -32,7 +32,6 @@ class MeasurementCreate(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
         return super(MeasurementCreate, self).form_valid(form)
 
 
-# TODO: add custom mixin "must have UserData!!!"
 class MeasurementListView(LoginRequiredMixin, UserDataRequiredMixin, ListView):
     login_url = reverse_lazy('acocunts:login')
     redirect_field_name = 'Zaloguj'
