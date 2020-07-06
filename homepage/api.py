@@ -1,16 +1,26 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 
 from measurements.models import Measurement
 from your_health.models import UserData
+
+
+class MyBasicAuthentication(BasicAuthentication):
+    def authenticate(self, request):
+        user, _ = super(MyBasicAuthentication, self).authenticate(request)
+        login(request, user)
+
+        return user, _
 
 
 class ChartData(APIView):
     """
     it returns JsonResponse object to generate charts in the homepage
     """
-    authentication_classes = []
-    permission_classes = []
+    authentication_classes = [SessionAuthentication, MyBasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         """
