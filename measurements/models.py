@@ -13,7 +13,7 @@ class Measurement(models.Model):
     pulse = models.SmallIntegerField(null=False, blank=False, help_text='Tętnop')
 
     class Meta:
-        ordering = ['-measurement-time']
+        ordering = ['-measurement_time']
 
     def __str__(self):
         info_message = 'Pomiar dla: {user}, wynik: {systolic}/{diastolic}, tętno: {pulse}'.format(

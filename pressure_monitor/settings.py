@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'accounts',
     'your_health',
     'homepage',
+    'measurements',
 ]
 
 MIDDLEWARE = [

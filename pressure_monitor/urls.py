@@ -26,4 +26,7 @@ urlpatterns = [
 
     # accounts app
     path('accounts/', include('accounts.urls')),
+
+    # measurements app
+    path('measurements/', include('measurements.urls')),
 ]
