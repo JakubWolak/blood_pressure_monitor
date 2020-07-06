@@ -12,6 +12,9 @@ class Measurement(models.Model):
     diastolic_pressure = models.SmallIntegerField(null=False, blank=False, help_text='Ciśnienie rozkurczowe')
     pulse = models.SmallIntegerField(null=False, blank=False, help_text='Tętnop')
 
+    class Meta:
+        ordering = ['-measurement-time']
+
     def __str__(self):
         info_message = 'Pomiar dla: {user}, wynik: {systolic}/{diastolic}, tętno: {pulse}'.format(
             user=userdata.get_full_name(),
