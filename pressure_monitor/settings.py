@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # 3rd part apps
     'bootstrap4',
+    'rest_framework',
 
 
     # custom blood_pressure_monitor apps
@@ -129,3 +130,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/homepage/static/'
+
+

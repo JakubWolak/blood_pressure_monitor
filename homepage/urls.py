@@ -11,5 +11,5 @@ urlpatterns = [
 
 
     # api path to render charts in the homepage
-    path('api/get_data', api.get_data_for_charts, name='get_data'),
+    path('api/get_data', api.ChartData.as_view()),
 ]
