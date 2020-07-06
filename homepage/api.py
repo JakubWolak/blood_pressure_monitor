@@ -34,7 +34,8 @@ class ChartData(APIView):
 
         try:
             # gets 5 latest measurements
-            measurements = Measurement.objects.filter(userdata=userdata)[:5]
+            measurements = list(Measurement.objects.filter(userdata=userdata)[:5])
+            measurements.reverse()
         except Measurement.DoesNotExist as e:
             print(e)
             measurements = []
