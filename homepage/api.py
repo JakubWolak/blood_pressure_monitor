@@ -33,22 +33,25 @@ class ChartData(APIView):
             userdata = []
 
         try:
-            # gets 7 latest measurements
-            measurements = Measurement.objects.filter(userdata=userdata)[:7]
+            # gets 5 latest measurements
+            measurements = Measurement.objects.filter(userdata=userdata)[:5]
         except Measurement.DoesNotExist as e:
             print(e)
             measurements = []
         
+        measurement_date = []
         systolic_pressure = []
         diastolic_pressure = []
         pulse = []
 
         for measurement in measurements:
+            measurement_date.append(measurement.measurement_time.strftime('%m-%d %H:%M'))
             systolic_pressure.append(measurement.systolic_pressure)
             diastolic_pressure.append(measurement.diastolic_pressure)
             pulse.append(measurement.pulse)
 
         data = {
+            'measurement_date': measurement_date,
             'systolic_pressure': systolic_pressure,
             'diastolic_pressure': diastolic_pressure,
             'pulse': pulse

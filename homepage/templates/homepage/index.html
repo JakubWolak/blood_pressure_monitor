@@ -6,6 +6,9 @@
 
 {% block content %}
 
+<!-- HOMEPAGE CHARTS Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
 <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -96,7 +99,7 @@
           <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-4 col-lg-4">
+            <div class="col-xl-4 col-lg-12">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -105,14 +108,14 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
-                    <!-- TUTAJJJJJJJJJJJJJ DODAJK WYKRESY OŚLE-->
+                    <canvas id="systolic_pressure" width='100%'></canvas>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Area Chart -->
-            <div class="col-xl-4 col-lg-4">
+            <div class="col-xl-4 col-lg-12">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -121,14 +124,14 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
-                    <!-- TUTAJJJJJJJJJJJJJ DODAJK WYKRESY OŚLE-->
+                    <canvas id="diastolic_pressure" width='100%'></canvas>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Area Chart -->
-            <div class="col-xl-4 col-lg-4">
+            <div class="col-xl-4 col-lg-12">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -137,7 +140,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
-                    <!-- TUTAJJJJJJJJJJJJJ DODAJK WYKRESY OŚLE-->
+                    <canvas id="pulse" width='100%'></canvas>
                   </div>
                 </div>
               </div>
@@ -166,3 +169,75 @@
   <!-- End of Page Wrapper -->
 
 {% endblock content %}
+
+<!-- HOMEPAGE CHARTS Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+<script>
+  {% block jquery %}
+
+    var endpoint = '{% url 'homepage:get_api_data' %}'
+    var dates = [];
+    var systolic_pressue = [];
+    var diastolic_pressue = [];
+    var pulse = [];
+    $.ajax({
+      method: "GET",
+      url: endpoint,
+      success: function(response_data){
+        dates = response_data.measurement_date
+        systolic_pressure = response_data.systolic_pressure
+        diastolic_pressure = response_data.diastolic_pressure
+        pulse = response_data.pulse
+
+        var systolic_pressure_chart = document.getElementById('systolic_pressure').getContext("2d");
+        var chart1 = new Chart(systolic_pressure_chart, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'mm Hg',
+                    data: systolic_pressure,
+                }]
+            }
+          });
+
+        var diastolic_pressure_chart = document.getElementById('diastolic_pressure').getContext("2d");
+        var chart2 = new Chart(diastolic_pressure_chart, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'mm Hg',
+                    data: diastolic_pressure,
+                }]
+            }
+          });
+
+        var pulse_chart = document.getElementById('pulse').getContext("2d");
+        var chart3 = new Chart(pulse_chart, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'mm Hg',
+                    data: pulse,
+                }]
+            }
+          });
+      },
+      error: function(error_data){
+        console.log('błąd pobierania danych pomiarów')
+        console.log(error_data)
+      }
+    })
+
+    console.log(dates)
+  
+
+
+
+
+
+  {% endblock jquery %}
+</script>
