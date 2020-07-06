@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from your_health.mixins import UserDataRequiredMixin, UserDataExistsMixin
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 
 from .forms import UserDataForm
@@ -24,8 +24,34 @@ class UserDataCreate(LoginRequiredMixin, UserDataExistsMixin, CreateView):
         return super(UserDataCreate, self).form_valid(form)
 
 
-class UserDataUpdate(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
+class UserDataUpdate(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
     model = UserData
     fields = ['name', 'surname', 'sex', 'height', 'weight']
 
     template_name = 'your_health/add_userdata.html'
+    success_url = reverse_lazy('homepage:index')
+
+    def get_initial(self):
+        initial = {}
+
+        try:
+            userdata = UserData.objects.get(user=self.request.user)
+            initial['name'] = userdata.name
+            initial['surname'] = userdata.surname
+            initial['sex'] = userdata.sex
+            initial['height'] = userdata.height
+            initial['weight'] = userdata.weight
+        except UserData.DoesNotExist as e:
+            print(e)
+            initial = {}
+
+        return initial
+
+    def get_object(self):
+        try:
+            obj = UserData.objects.get(user=self.request.user)
+        except UserData.DoesNotExist:
+            obj = None
+        
+        return obj
+        
