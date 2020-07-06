@@ -11,6 +11,7 @@ def register(request, template_name='registration/register.html'):
         form = RegisterForm(request.POST)
 
         if form.is_valid():
+            print('valid form')
             form.save()
 
             return(redirect(reverse('accounts:login')))

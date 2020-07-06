@@ -8,9 +8,9 @@ class Measurement(models.Model):
 
     measurement_time = models.DateTimeField(auto_now_add=True, editable=False)
 
-    systolic_pressure = models.SmallIntegerField(null=False, blank=False, help_text='Ciśnienie skurczowe')
-    diastolic_pressure = models.SmallIntegerField(null=False, blank=False, help_text='Ciśnienie rozkurczowe')
-    pulse = models.SmallIntegerField(null=False, blank=False, help_text='Tętnop')
+    systolic_pressure = models.SmallIntegerField(null=False, blank=False, default=120, verbose_name='Ciśnienie skurczowe')
+    diastolic_pressure = models.SmallIntegerField(null=False, blank=False, default=80, verbose_name='Ciśnienie rozkurczowe')
+    pulse = models.SmallIntegerField(null=False, blank=False, default=60, verbose_name='Tętno')
 
     class Meta:
         ordering = ['-measurement_time']

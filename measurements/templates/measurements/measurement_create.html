@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form method='POST' action='.'>
+<form method='POST' action='{% url 'measurements:add_measurement' %}'>
     {% csrf_token %}
     {{ form.as_p }}
     <button type='submit'>Zapisz</button>
