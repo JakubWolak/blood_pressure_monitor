@@ -7,10 +7,11 @@ from django.core.exceptions import ValidationError
 
 from .models import Measurement
 from .forms import MeasurementCreateForm
+from .mixins import UserDataRequiredMixin
 from your_health.models import UserData
 
 # TODO: add custom mixin  "must have UserData!!!"
-class MeasurementCreate(LoginRequiredMixin, CreateView):
+class MeasurementCreate(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
     login_url = reverse_lazy('accounts:login')
     redirect_field_name = 'Zaloguj'
 
@@ -32,7 +33,7 @@ class MeasurementCreate(LoginRequiredMixin, CreateView):
 
 
 # TODO: add custom mixin "must have UserData!!!"
-class MeasurementListView(LoginRequiredMixin, ListView):
+class MeasurementListView(LoginRequiredMixin, UserDataRequiredMixin, ListView):
     login_url = reverse_lazy('acocunts:login')
     redirect_field_name = 'Zaloguj'
 
