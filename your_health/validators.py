@@ -20,7 +20,7 @@ def min_weight(weight):
     min_weight = 20
 
     if weight < min_weight:
-        raise ValidationError(_('Minimalna waga to {0} kg!'.format(max_weight)))
+        raise ValidationError(_('Minimalna waga to {0} kg!'.format(min_weight)))
 
 
 def max_weight(weight):

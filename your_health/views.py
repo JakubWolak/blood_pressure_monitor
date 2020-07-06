@@ -1,59 +1,57 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from your_health.mixins import UserDataRequiredMixin, UserDataExistsMixin
+from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse_lazy
 
-from .decorators import *
 from .forms import UserDataForm
 from .models import UserData
 
 
-@login_required
-@userdata_exists
-def add_userdata(request, template_name='your_health/add_userdata.html'):
-    """
-    creates new userdata
-    """
+class UserDataCreate(LoginRequiredMixin, UserDataExistsMixin, CreateView):
+    login_url = reverse_lazy('accounts:login')
+    redirect_field_name = 'Zaloguj'
 
-    if request.method == 'POST':
-        form = UserDataForm(request.POST)
+    template_name = 'your_health/add_userdata.html'
+    success_url = reverse_lazy('homepage:index')
 
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.user = request.user
-            form.save()
+    model = UserData
+    form_class = UserDataForm
 
-            return redirect(reverse('homepage:index'))
+    def form_valid(self, form):
+        userdata = form.save(commit=False)
+        userdata.user = self.request.user
+
+        return super(UserDataCreate, self).form_valid(form)
+
+
+class UserDataUpdate(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
+    model = UserData
+    fields = ['name', 'surname', 'sex', 'height', 'weight']
+
+    template_name = 'your_health/add_userdata.html'
+    success_url = reverse_lazy('homepage:index')
+
+    def get_initial(self):
+        initial = {}
+
+        try:
+            userdata = UserData.objects.get(user=self.request.user)
+            initial['name'] = userdata.name
+            initial['surname'] = userdata.surname
+            initial['sex'] = userdata.sex
+            initial['height'] = userdata.height
+            initial['weight'] = userdata.weight
+        except UserData.DoesNotExist as e:
+            print(e)
+            initial = {}
+
+        return initial
+
+    def get_object(self):
+        try:
+            obj = UserData.objects.get(user=self.request.user)
+        except UserData.DoesNotExist:
+            obj = None
         
-    else:
-        form = UserDataForm()
+        return obj
         
-    context = {
-        'form': form
-    }
-        
-    return render(request, template_name, context)
-
-
-@login_required
-@userdata_does_not_exists
-def edit_userdata(request, template_name='your_health/add_userdata.html'):
-    """
-    edits existing userdata
-    """
-    userdata = get_object_or_404(UserData, user=request.user)
-
-    if request.method == 'POST':
-        form = UserDataForm(request.POST, instance=userdata)
-
-        if form.is_valid():
-            form.save()
-
-            return redirect(reverse('homepage:index'))
-    else:
-        form = UserDataForm(instance=userdata)
-
-    context = {
-        'form': form
-    }
-
-    return render(request, template_name, context)
