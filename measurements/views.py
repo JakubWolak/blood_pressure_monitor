@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 
 from .models import Measurement
 from .forms import MeasurementCreateForm
-from .mixins import UserDataRequiredMixin
+from your_health.mixins import UserDataRequiredMixin
 from your_health.models import UserData
 
 

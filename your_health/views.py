@@ -1,59 +1,31 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from your_health.mixins import UserDataRequiredMixin, UserDataExistsMixin
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
-from .decorators import *
 from .forms import UserDataForm
 from .models import UserData
 
 
-@login_required
-@userdata_exists
-def add_userdata(request, template_name='your_health/add_userdata.html'):
-    """
-    creates new userdata
-    """
+class UserDataCreate(LoginRequiredMixin, UserDataExistsMixin, CreateView):
+    login_url = reverse_lazy('accounts:login')
+    redirect_field_name = 'Zaloguj'
 
-    if request.method == 'POST':
-        form = UserDataForm(request.POST)
+    template_name = 'your_health/add_userdata.html'
+    success_url = reverse_lazy('homepage:index')
 
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.user = request.user
-            form.save()
+    model = UserData
+    form_class = UserDataForm
 
-            return redirect(reverse('homepage:index'))
-        
-    else:
-        form = UserDataForm()
-        
-    context = {
-        'form': form
-    }
-        
-    return render(request, template_name, context)
+    def form_valid(self, form):
+        userdata = form.save(commit=False)
+        userdata.user = self.request.user
+
+        return super(UserDataCreate, self).form_valid(form)
 
 
-@login_required
-@userdata_does_not_exists
-def edit_userdata(request, template_name='your_health/add_userdata.html'):
-    """
-    edits existing userdata
-    """
-    userdata = get_object_or_404(UserData, user=request.user)
+class UserDataUpdate(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
+    model = UserData
+    fields = ['name', 'surname', 'sex', 'height', 'weight']
 
-    if request.method == 'POST':
-        form = UserDataForm(request.POST, instance=userdata)
-
-        if form.is_valid():
-            form.save()
-
-            return redirect(reverse('homepage:index'))
-    else:
-        form = UserDataForm(instance=userdata)
-
-    context = {
-        'form': form
-    }
-
-    return render(request, template_name, context)
+    template_name = 'your_health/add_userdata.html'
