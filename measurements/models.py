@@ -15,6 +15,19 @@ class Measurement(models.Model):
     class Meta:
         ordering = ['-measurement_time']
 
+    def queryset_for_user(user):
+        """
+        takes request.user as an argument and returns all 
+        measurements where userdata's foreign key equals given arugment 
+        """        
+        try:
+            userdata = UserData.objects.get(user=user)
+            queryset = Measurement.objects.filter(userdata=userdata)
+        except:
+            queryset = {}
+        
+        return queryset
+
     def __str__(self):
         info_message = 'Pomiar dla: {user}, wynik: {systolic}/{diastolic}, tętno: {pulse}'.format(
             user=userdata.get_full_name(),

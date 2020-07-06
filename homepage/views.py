@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from django.views.generic.base import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from measurements.mixins import UserDataRequiredMixin
 
 
-def index(request, template_name='homepage/index.html'):
-    context = {}
-
-    return render(request, template_name, context)
+class HomePageView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):
+    template_name = 'homepage/index.html'

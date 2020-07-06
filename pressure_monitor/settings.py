@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # 3rd part apps
     'bootstrap4',
+    'rest_framework',
 
 
     # custom blood_pressure_monitor apps
