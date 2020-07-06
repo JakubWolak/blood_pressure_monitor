@@ -3,9 +3,11 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.core.exceptions import ValidationError
 
 from .models import Measurement
 from .forms import MeasurementCreateForm
+from your_health.models import UserData
 
 # TODO: add custom mixin  "must have UserData!!!"
 class MeasurementCreate(LoginRequiredMixin, CreateView):
@@ -17,6 +19,16 @@ class MeasurementCreate(LoginRequiredMixin, CreateView):
 
     model = Measurement
     form_class = MeasurementCreateForm
+
+    def form_valid(self, form):
+        measurement = form.save(commit=False)
+
+        try:
+            measurement.userdata = UserData.objects.get(user=self.request.user)
+        except UserData.DoesNotExists:
+            raise ValidatationError(_('Nie uzupełniono szczegółowych danych dla zalogowanego użytkownika'), code='invalid')
+
+        return super(MeasurementCreate, self).form_valid(form)
 
 
 # TODO: add custom mixin "must have UserData!!!"
