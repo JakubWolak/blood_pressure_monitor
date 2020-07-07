@@ -107,7 +107,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
+                  <div class="chart-area h-100">
                     <canvas id="systolic_pressure" width='100%'></canvas>
                   </div>
                 </div>
@@ -123,7 +123,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
+                  <div class="chart-area h-100">
                     <canvas id="diastolic_pressure" width='100%'></canvas>
                   </div>
                 </div>
@@ -139,7 +139,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
+                  <div class="chart-area h-100">
                     <canvas id="pulse" width='100%'></canvas>
                   </div>
                 </div>
@@ -199,6 +199,16 @@
                     label: 'mm Hg',
                     data: systolic_pressure,
                 }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    suggestedMin: 70,
+                    suggestedMax: 200,
+                  }
+                }]
+              }
             }
           });
 
