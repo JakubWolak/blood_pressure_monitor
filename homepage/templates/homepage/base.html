@@ -64,15 +64,9 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Porównaj pomiary</span></a>
-      </li>
-
-      <li class="nav-item">
         <a class="nav-link" href="{% url 'measurements:show_measurements' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Wyświetl wyniki</span></a>
+          <span>Anazliuj pomiary</span></a>
       </li>
 
       <!-- Divider -->
@@ -141,6 +135,10 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="{% url 'homepage:index' %}">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Strona główna
+                </a>
                 <a class="dropdown-item" href="{% url 'your_health:edit_data' %}">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Twoje dane
@@ -167,10 +165,35 @@
         <!-- End of Topbar -->
 
 
+      <!-- Begin Page Content -->
+        <div class="container-fluid">
+
         <!-- BLOCK CONTENT -->
         {% block content %}
         {% endblock content %}
         <!-- END BLOCK CONTENT -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
 
 
 <!-- Scroll to Top Button-->
