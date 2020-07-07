@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 
@@ -22,6 +23,8 @@ class ChartData(APIView):
     authentication_classes = [SessionAuthentication, MyBasicAuthentication]
     permission_classes = [IsAuthenticated]
 
+    parser_classes = [JSONParser]
+
     def get(self, request, format=None):
         """
         Return a list of all users.
@@ -32,9 +35,11 @@ class ChartData(APIView):
             print(e)
             userdata = []
 
+        # LIMITING TABLE SIZE
+        limit = int(request.query_params.get('size'))
+
         try:
-            # gets 5 latest measurements
-            measurements = list(Measurement.objects.filter(userdata=userdata)[:5])
+            measurements = list(Measurement.objects.filter(userdata=userdata))[:limit]
             measurements.reverse()
         except Measurement.DoesNotExist as e:
             print(e)
