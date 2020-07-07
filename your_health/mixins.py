@@ -20,13 +20,7 @@ class UserDataRequiredMixin:
         """passes userdata to template"""
 
         context = super().get_context_data(**kwargs)
-        try:
-            userdata = UserData.objects.get(user=self.request.user)
-        except UserData.DoesNotExist as e:
-            print(e)
-            userdata = None
-
-        context['user'] = userdata
+        context['user'] = try_get_userdata(self.request.user)
         
         return context
 
@@ -47,12 +41,16 @@ class UserDataExistsMixin:
         """passes userdata to template"""
 
         context = super().get_context_data(**kwargs)
-        try:
-            userdata = UserData.objects.get(user=self.request.user)
-        except UserData.DoesNotExist as e:
-            print(e)
-            userdata = None
-
-        context['user'] = userdata
+        context['user'] = try_get_userdata(self.request.user)
         
         return context
+
+
+def try_get_userdata(user):
+    """tries to get userdata, if userdata does not exits, returns None"""
+    try:
+        userdata = UserData.objects.get(user=user)
+    except UserData.DoesNotExist as e:
+        print(e)
+        userdata = None
+    return userdata
