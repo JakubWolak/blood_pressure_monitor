@@ -8,6 +8,7 @@ app_name = 'homepage'
 
 urlpatterns = [
     path('', views.HomePageView.as_view(), name='index'),
+    path('systolic_pressure', views.SystolicPressureView.as_view(), name='systolic_pressure'),
 
 
     # api path to render charts in the homepage

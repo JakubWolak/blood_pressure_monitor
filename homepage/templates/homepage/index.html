@@ -182,8 +182,9 @@
     var diastolic_pressue = [];
     var pulse = [];
     $.ajax({
-      method: "GET",
       url: endpoint,
+      type: "GET",
+      data: { size: 7 },
       success: function(response_data){
         dates = response_data.measurement_date
         systolic_pressure = response_data.systolic_pressure
