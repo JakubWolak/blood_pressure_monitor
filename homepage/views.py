@@ -14,7 +14,7 @@ class SystolicPressureView(LoginRequiredMixin, UserDataRequiredMixin, TemplateVi
 
 
 class DiastolicPressureView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):
-    template_name = 'homepage/disatolic_pressure.html'
+    template_name = 'homepage/diastolic_pressure.html'
 
 
 class PulseView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):

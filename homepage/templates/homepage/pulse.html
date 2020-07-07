@@ -1,4 +1,72 @@
 {% extends 'homepage/base.html' %}
 
 {% block content %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Content Row -->
+    <div class='row'>
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-12">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Tętno</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area h-100">
+                <canvas id="pulse" width='100%'></canvas>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}
+
+
+<!-- HOMEPAGE CHARTS Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+<script>
+  {% block jquery %}
+
+    var endpoint = '{% url 'homepage:get_api_data' %}'
+    var dates = [];
+    var diastolic_pressue = [];
+    $.ajax({
+      url: endpoint,
+      type: "GET",
+      data: { size: 30 },
+      success: function(response_data){
+        dates = response_data.measurement_date
+        pulse = response_data.pulse
+
+        var pulse_chart = document.getElementById('pulse').getContext("2d");
+        var chart1 = new Chart(pulse_chart, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'uderzeń / min',
+                    data: pulse,
+                }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    suggestedMin: 30,
+                    suggestedMax: 180,
+                  }
+                }]
+              }
+            }
+          });
+        }
+    })
+  
+  {% endblock jquery %}
+</script>

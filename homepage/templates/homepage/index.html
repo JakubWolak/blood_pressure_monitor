@@ -99,7 +99,7 @@
           <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-4 col-lg-12">
+            <div class="col-xl-4 col-lg-12" onclick="window.location='{% url 'homepage:systolic_pressure' %}';">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -115,7 +115,7 @@
             </div>
 
             <!-- Area Chart -->
-            <div class="col-xl-4 col-lg-12">
+            <div class="col-xl-4 col-lg-12" onclick="window.location='{% url 'homepage:diastolic_pressure' %}';">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -131,7 +131,7 @@
             </div>
 
             <!-- Area Chart -->
-            <div class="col-xl-4 col-lg-12">
+            <div class="col-xl-4 col-lg-12" onclick="window.location='{% url 'homepage:pulse' %}';">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -222,6 +222,16 @@
                     label: 'mm Hg',
                     data: diastolic_pressure,
                 }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    suggestedMin: 30,
+                    suggestedMax: 120,
+                  }
+                }]
+              }
             }
           });
 
@@ -234,6 +244,16 @@
                     label: 'uderzeń / min',
                     data: pulse,
                 }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    suggestedMin: 30,
+                    suggestedMax: 180,
+                  }
+                }]
+              }
             }
           });
       },

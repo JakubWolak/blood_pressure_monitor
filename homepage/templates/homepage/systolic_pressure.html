@@ -37,8 +37,9 @@
     var dates = [];
     var systolic_pressue = [];
     $.ajax({
-      method: "GET",
       url: endpoint,
+      type: "GET",
+      data: { size: 30 },
       success: function(response_data){
         dates = response_data.measurement_date
         systolic_pressure = response_data.systolic_pressure
