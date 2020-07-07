@@ -16,6 +16,20 @@ class UserDataRequiredMixin:
         
         return super().dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        """passes userdata to template"""
+
+        context = super().get_context_data(**kwargs)
+        try:
+            userdata = UserData.objects.get(user=self.request.user)
+        except UserData.DoesNotExist as e:
+            print(e)
+            userdata = None
+
+        context['user'] = userdata
+        
+        return context
+
 
 class UserDataExistsMixin:
     """
@@ -28,3 +42,17 @@ class UserDataExistsMixin:
             return super().dispatch(request, *args, **kwargs)
         
         return redirect(reverse('your_health:edit_data'))
+    
+    def get_context_data(self, **kwargs):
+        """passes userdata to template"""
+
+        context = super().get_context_data(**kwargs)
+        try:
+            userdata = UserData.objects.get(user=self.request.user)
+        except UserData.DoesNotExist as e:
+            print(e)
+            userdata = None
+
+        context['user'] = userdata
+        
+        return context
