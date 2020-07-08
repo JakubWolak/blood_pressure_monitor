@@ -1,5 +1,6 @@
 from django_tables2 import Table, Column
 from django.utils.html import mark_safe, escape
+import datetime
 
 from .models import Measurement
 from .pressure_values import systolic_pressure, diastolic_pressure, pulse, css_classes
@@ -10,6 +11,11 @@ class MeasurementTable(Table):
     systolic_pressure = Column()
     diastolic_pressure = Column()
     pulse = Column()
+
+    class Meta:
+        attrs = {'class': 'table'}
+        model = Measurement
+        fields = ('measurement_time', 'systolic_pressure', 'diastolic_pressure', 'pulse')
 
     def render_systolic_pressure(self, value):
         """adds class depends on value"""
@@ -46,11 +52,6 @@ class MeasurementTable(Table):
             return generate_return(bad, value)
         else:
             return generate_return(good, value)
-    
-    class Meta:
-        attrs = {'class': 'table table-striped'}
-        model = Measurement
-        fields = ('measurement_time', 'systolic_pressure', 'diastolic_pressure', 'pulse')
 
     
 def generate_return(css_class, value):
