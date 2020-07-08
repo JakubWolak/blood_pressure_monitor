@@ -13,9 +13,6 @@ from your_health.models import UserData
 
 
 class MeasurementCreate(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
-    login_url = reverse_lazy('accounts:login')
-    redirect_field_name = 'Zaloguj'
-
     template_name = 'measurements/measurement_create.html'
     success_url = reverse_lazy('measurements:show_measurements')
 
