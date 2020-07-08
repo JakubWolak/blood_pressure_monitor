@@ -38,7 +38,6 @@ class MeasurementTableView(LoginRequiredMixin, UserDataRequiredMixin, SingleTabl
     context_object_name = 'table'
 
     table_class = MeasurementTable
-    #model = Measurement
 
     def get_queryset(self):
         """returns measurements that belongs to logged user"""
