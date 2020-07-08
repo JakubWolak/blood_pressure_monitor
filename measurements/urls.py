@@ -10,5 +10,5 @@ urlpatterns = [
     path('add_measurement', views.MeasurementCreate.as_view(), name='add_measurement'),
 
     # showing all measurements
-    path('show_measurements', views.MeasurementListView.as_view(), name='show_measurements'),
+    path('show_measurements', views.MeasurementTableView.as_view(), name='show_measurements'),
 ]

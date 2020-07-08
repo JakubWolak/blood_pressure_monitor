@@ -7,7 +7,7 @@ from .validators import *
 class Measurement(models.Model):
     userdata = models.ForeignKey(UserData, on_delete=models.PROTECT)
 
-    measurement_time = models.DateTimeField(auto_now_add=True, editable=False)
+    measurement_time = models.DateTimeField(auto_now_add=True, editable=False, verbose_name='Data pomiaru')
 
     systolic_pressure = models.SmallIntegerField(null=False, blank=False, default=120, verbose_name='Ciśnienie skurczowe',
         validators=[max_systolic_pressure, min_systolic_pressure])
