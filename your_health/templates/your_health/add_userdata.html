@@ -1,42 +1,68 @@
 {% extends 'homepage/base.html' %}
 
-{% block title %}
-    Dodaj swoje dane
-{% endblock title %}
-
-
 {% block content %}
-<div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Twoje dane</h1>
-
-          <div class="row">
-
-            <div class="col-lg-12">
-
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Tutaj możesz zmienić swoje dane:</h6>
-                </div>
-                <div class="card-body">
-                  <p>Works with any button colors, just use the <code>.btn-icon-split</code> class and the markup in the examples below. The examples below also use the <code>.text-white-50</code> helper class on the icons for additional styling, but it is not required.</p>
-                  
-
-                  <form method='POST'>
-                        {% csrf_token %}
-                        {{ form.as_p }}
-        
-                  
-                    <button type='submit'>Zapisz</button>
-                  </form>
-              </div>
-
-            </div>
-
-          </div>
-
+<div class="col-lg-6 col-sm-12">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Zmień swoje dane</h6>
         </div>
+        <div class="card-body">
+            <!-- Card Body -->
+            <form class='user' method='POST'>
+                {% csrf_token %}
 
-    
+                {{ form.non_field_errors }}
+
+                <div class='form-group'>
+                    {% for error in form.name.errors %}
+                        {{ error }}
+                    {% endfor %}
+
+                    <label for="name" class="col-form-label">Imię:</label>
+                    {{ form.name }}
+                </div>
+
+                <div class='form-group'>
+                    {% for error in form.surname.errors %}
+                        {{ error }}
+                    {% endfor %}
+
+                    <label for="surname" class="col-form-label">Nazwisko:</label>
+                    {{ form.surname }}
+                </div>
+
+                <div class='form-group'>
+                    {% for error in form.sex.errors %}
+                        {{ error }}
+                    {% endfor %}
+
+                    <label for="sex" class="col-form-label">Płeć:</label>
+                    {{ form.sex }}
+                  </div>
+
+                  <div class='form-group'>
+                    {% for error in form.height.errors %}
+                        {{ error }}
+                    {% endfor %}
+
+                    <label for="height" class="col-form-label">Wzrost:</label>
+                    {{ form.height }}
+                  </div>
+
+                  <div class='form-group'>
+                    {% for error in form.weight.errors %}
+                        {{ error }}
+                    {% endfor %}
+
+                    <label for="weight" class="col-form-label">Waga:</label>
+                    {{ form.weight }}
+                  </div>
+
+                  <button type='submit' class='btn btn-primary btn-user btn-block'>Zapisz dane</button>
+            </form>
+         </div>
+    </div>
+</div>
+
 {% endblock content %}
