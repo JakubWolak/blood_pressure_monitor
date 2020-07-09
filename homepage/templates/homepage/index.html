@@ -153,7 +153,30 @@
 
 <script type="module">
   {% block jquery %}
-    import systolic_pressure_options from "{% static 'charts_js/systolic_pressure.js' %}";
+    var systolic_pressure_options = {
+      type: 'line',
+      data: {
+          labels: dates,
+          datasets: [{
+              label: 'mm Hg',
+              data: systolic_pressure,
+          }]
+      },
+       options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              suggestedMax: 200,
+            }
+          }]
+        }
+      }
+    };
+
+    var diastolic_pressure_options = {
+
+    };
 
     var endpoint = '{% url 'homepage:get_api_data' %}'
     var dates = [];
