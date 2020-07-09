@@ -19,3 +19,11 @@ class DiastolicPressureView(LoginRequiredMixin, UserDataRequiredMixin, TemplateV
 
 class PulseView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):
     template_name = 'homepage/pulse.html'
+
+
+class SystolicDiastolicView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):
+    template_name = 'homepage/systolic_diastolic_pressure.html'
+
+
+class SystolicDiastolicPulseView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):
+    template_name = 'homepage/systolic_diastolic_pulse.html'

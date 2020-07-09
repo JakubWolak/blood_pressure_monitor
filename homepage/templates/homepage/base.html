@@ -70,9 +70,23 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'measurements:show_measurements' %}">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-align-left"></i>
-          <span>Anazliuj pomiary</span></a>
+          <span>Anazliuj pomiary</span>
+        </a>
+        <div id="collapseUtilities" class="collapse hide" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Wykresy ciśnień:</h6>
+            <a class="collapse-item" href="{% url 'homepage:systolic_pressure' %}">Skurczowe</a>
+            <a class="collapse-item" href="{% url 'homepage:diastolic_pressure' %}">Rozkurczowe</a>
+            <a class="collapse-item" href="{% url 'homepage:systolic_diastolic' %}">Wykres ogólny</a>
+
+            <h6 class="collapse-header">Wykresy tętna:</h6>
+            <a class="collapse-item" href="{% url 'homepage:pulse' %}">Tętno</a>
+            <a class="collapse-item" href="{% url 'homepage:systolic_diastolic_pulse' %}">Wykres ogólny + tętno</a>
+          </div>
+        </div>
+        
       </li>
 
       <!-- Divider -->
