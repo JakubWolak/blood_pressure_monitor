@@ -9,6 +9,10 @@ class HomePageView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):
     template_name = 'homepage/index.html'
 
 
+class MeasurementsDetailsView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):
+    template_name = 'homepage/details.html'
+
+
 class SystolicPressureView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):
     template_name = 'homepage/systolic_pressure.html'
 

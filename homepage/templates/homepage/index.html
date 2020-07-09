@@ -19,8 +19,8 @@
           <!-- Content Row -->
           <div class="row">
 
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <!-- ADD MEASUREMENT Card -->
+            <div class="col-xl-3 col-md-6 mb-4" onclick="window.location='{% url 'measurements:add_measurement' %}';">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -36,8 +36,8 @@
               </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <!-- MEASUREMENTS' DETAILS Card -->
+            <div class="col-xl-3 col-md-6 mb-4" onclick="window.location='{% url 'homepage:details' %}';">
               <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -53,7 +53,7 @@
               </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!-- SEND MEASUREMENTS Card -->
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
@@ -74,7 +74,7 @@
               </div>
             </div>
 
-            <!-- Pending Requests Card Example -->
+            <!-- GENERATE STATISTICS Card -->
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
