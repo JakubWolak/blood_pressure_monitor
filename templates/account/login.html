@@ -48,12 +48,9 @@ Logowanie
                 Login
               </button>
               <hr>
-              <a href="index.html" class="btn btn-google btn-user btn-block">
-                <i class="fab fa-google fa-fw"></i> Login with Google
-              </a>
-              <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-              </a>
+              
+              {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+              
               {% if redirect_field_value %}
               <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
               {% endif %}
