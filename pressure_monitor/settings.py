@@ -40,14 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
 
-    # authentication
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
-
-
     # 3rd part apps
     'bootstrap4',
     'rest_framework',
@@ -58,6 +50,14 @@ INSTALLED_APPS = [
     'your_health',
     'homepage',
     'measurements',
+
+
+    # authentication
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -72,10 +72,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'pressure_monitor.urls'
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'allauth')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'accounts')],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,4 +155,6 @@ SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 LOGIN_REDIRECT_URL = 'homepage:index'
+
+ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/'
 

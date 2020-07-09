@@ -1,0 +1,76 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block title %}
+Logowanie
+{% endblock title %}
+
+{% get_providers as socialaccount_providers %}
+
+{% block content %}
+
+<div class="col-xl-10 col-lg-12 col-md-9">
+
+  <div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+      <!-- Nested Row within Card Body -->
+      <div class="row">
+        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+        <div class="col-lg-6">
+          <div class="p-5">
+            <div class="text-center">
+              <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+            </div>
+            <form class="user login" method="POST" action="{% url 'account_login' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                {% for error in form.login.errors %}
+                {{ error }}
+                {% endfor %}
+                <input type="text" class="form-control form-control-user" name="login" placeholder="Username"
+                  autofocus="autofocus" maxlength="150" required="" id="id_login">
+              </div>
+              {% for error in form.password.errors %}
+              {{ error }}
+              {% endfor %}
+              <div class="form-group">
+                <input type="password" class="form-control form-control-user" name="password" placeholder="Password"
+                  required="" id="id_password">
+              </div>
+              <div class="form-group">
+                <label for="id_remember">Remember Me:</label> <input type="checkbox" class="form-control-user"
+                  name="remember" id="id_remember">
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-user btn-block">
+                Login
+              </button>
+              <hr>
+              <a href="index.html" class="btn btn-google btn-user btn-block">
+                <i class="fab fa-google fa-fw"></i> Login with Google
+              </a>
+              <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+              </a>
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+            </form>
+            <hr>
+            <div class="text-center">
+              <a class="small" href="{% url 'account_reset_password' %}">Zapomniałeś hasła?</a>
+            </div>
+            <div class="text-center">
+              <a class="small" href="{{ signup_url }}">Create an Account!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
