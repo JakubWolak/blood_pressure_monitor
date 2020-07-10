@@ -20,12 +20,13 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # allauth
+    path('accounts/', include('allauth.urls')),
+
+
     # custom blood_pressure_monitor urls
     # homepage app
     path('', include('homepage.urls')),
-
-    # accounts app
-    path('accounts/', include('accounts.urls')),
 
     # your_health app
     path('your_health/', include('your_health.urls')),
