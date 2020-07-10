@@ -30,6 +30,10 @@ git clone https://github.com/JakubWolak/blood_pressure_monitor.git
 ```bash
 pip install -r requirements.txt
 ```
+- Wykonaj migracje
+```bash
+python manage.py migrate
+```
 - Uruchom serwer
 ```bash
 python manage.py runserver
