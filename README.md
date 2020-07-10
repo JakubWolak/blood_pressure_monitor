@@ -20,7 +20,7 @@ virtualenv vnev
 ```
 - Aktywuj stworzone środowisko (Windows)
 ```bash
-venv\\Scripts\\activate
+venv\Scripts\activate
 ```
 - Sklonuj repozytorium
 ```bash
