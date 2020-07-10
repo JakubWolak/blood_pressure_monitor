@@ -8,9 +8,6 @@ from .models import UserData
 
 
 class UserDataCreate(LoginRequiredMixin, UserDataExistsMixin, CreateView):
-    login_url = reverse_lazy('accounts:login')
-    redirect_field_name = 'Zaloguj'
-
     template_name = 'your_health/add_userdata.html'
     success_url = reverse_lazy('homepage:index')
 
@@ -26,7 +23,7 @@ class UserDataCreate(LoginRequiredMixin, UserDataExistsMixin, CreateView):
 
 class UserDataUpdate(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
     model = UserData
-    fields = ['name', 'surname', 'sex', 'height', 'weight']
+    form_class = UserDataForm
 
     template_name = 'your_health/add_userdata.html'
     success_url = reverse_lazy('homepage:index')

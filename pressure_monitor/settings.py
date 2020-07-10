@@ -37,18 +37,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
 
     # 3rd part apps
     'bootstrap4',
     'rest_framework',
+    'django_tables2',
 
 
     # custom blood_pressure_monitor apps
-    'accounts',
     'your_health',
     'homepage',
     'measurements',
+
+
+    # authentication
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -63,10 +72,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'pressure_monitor.urls'
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'accounts')],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,3 +142,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/homepage/static/'
+
+
+# ALLAUTH
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+LOGIN_REDIRECT_URL = 'homepage:index'
+
+ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/'
+

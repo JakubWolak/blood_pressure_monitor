@@ -1,0 +1,4 @@
+<tbody>
+    {% for row in table.page.object_list|default:table.rows %}
+    {% block table.tbody.row %}
+    <tr class="{{ row.tr_class }}">
