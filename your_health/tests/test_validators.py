@@ -42,4 +42,3 @@ class ValidatorsTest(SimpleTestCase):
         self.assertIsNone(max_weight(valid_value))
         self.assertIsNone(max_weight(lower_value))
 
-
