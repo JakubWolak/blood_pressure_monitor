@@ -12,9 +12,9 @@ from your_health.mixins import UserDataRequiredMixin
 from your_health.models import UserData
 
 
-class MeasurementCreate(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
-    template_name = 'measurements/measurement_create.html'
-    success_url = reverse_lazy('measurements:show_measurements')
+class MeasurementCreateView(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
+    template_name = "measurements/measurement_create.html"
+    success_url = reverse_lazy("measurements:show_measurements")
 
     model = Measurement
     form_class = MeasurementCreateForm
@@ -25,14 +25,17 @@ class MeasurementCreate(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
         try:
             measurement.userdata = UserData.objects.get(user=self.request.user)
         except UserData.DoesNotExists:
-            raise ValidatationError(_('Nie uzupełniono szczegółowych danych dla zalogowanego użytkownika'), code='invalid')
+            raise ValidatationError(
+                _("Nie uzupełniono szczegółowych danych dla zalogowanego użytkownika"),
+                code="invalid",
+            )
 
         return super(MeasurementCreate, self).form_valid(form)
 
 
 class MeasurementTableView(LoginRequiredMixin, UserDataRequiredMixin, SingleTableView):
-    template_name = 'measurements/measurement_list.html'
-    context_object_name = 'table'
+    template_name = "measurements/measurement_list.html"
+    context_object_name = "table"
 
     table_class = MeasurementTable
 
