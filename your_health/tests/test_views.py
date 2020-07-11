@@ -47,6 +47,56 @@ class UserDataCreateTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.request["PATH_INFO"], reverse("your_health:add_data"))
 
+    def test_name_required(self):
+        self.client.login(username="username", password="password")
+        response = self.client.post(
+            reverse("your_health:add_data"),
+            {"surname": "surname", "sex": "male", "height": 190, "weight": 90,},
+            follow=True,
+        )
+
+        self.assertFormError(response, "form", "name", "This field is required.")
+
+    def test_surname_required(self):
+        self.client.login(username="username", password="password")
+        response = self.client.post(
+            reverse("your_health:add_data"),
+            {"name": "name", "sex": "male", "height": 190, "weight": 90,},
+            follow=True,
+        )
+
+        self.assertFormError(response, "form", "surname", "This field is required.")
+
+    def test_sex_required(self):
+        self.client.login(username="username", password="password")
+        response = self.client.post(
+            reverse("your_health:add_data"),
+            {"name": "name", "surname": "surname", "height": 190, "weight": 90,},
+            follow=True,
+        )
+
+        self.assertFormError(response, "form", "sex", "This field is required.")
+
+    def test_height_required(self):
+        self.client.login(username="username", password="password")
+        response = self.client.post(
+            reverse("your_health:add_data"),
+            {"name": "name", "surname": "surname", "sex": "male", "weight": 90,},
+            follow=True,
+        )
+
+        self.assertFormError(response, "form", "height", "This field is required.")
+
+    def test_weight_required(self):
+        self.client.login(username="username", password="password")
+        response = self.client.post(
+            reverse("your_health:add_data"),
+            {"name": "name", "surname": "surname", "sex": "male", "height": 190},
+            follow=True,
+        )
+
+        self.assertFormError(response, "form", "weight", "This field is required.")
+
     def test_saving_userdata_when_valid_data_given(self):
         self.client.login(username="username", password="password")
         response = self.client.post(
