@@ -1,5 +1,5 @@
 # blood_pressure_monitor
-Prosta aplikacja służąca do sprawdzania oraz monitorowania swoich pomiarów ciśnień krwi
+Prosta aplikacja służąca do sprawdzania oraz monitorowania swoich pomiarów ciśnień krwi !["Heart Rate Monitor Flat Icon Vector.svg from Wikimedia Commons by Videoplasty.com, CC-BY-SA 4.0"](https://upload.wikimedia.org/wikipedia/commons/d/d0/Heart_Rate_Monitor_Flat_Icon_Vector.svg)
 
 ## Założenia
 W początkowej wersji aplikacja ma umożliwiać użytkownikom:
