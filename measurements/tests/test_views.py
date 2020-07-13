@@ -107,9 +107,9 @@ class MeasurementTableView(CreateUserdata, TestCase):
     def test_displaying_data_when_logged_in_with_userdata(self):
         self.client.login(username="username", password="password")
         userdata = self.create_userdata(self.user)
-        response = self.client.post(reverse("measurements:show_measurements"))
+        response = self.client.get(reverse("measurements:show_measurements"))
 
-        self.assertEqual(response.status_code, 405)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.request["PATH_INFO"], reverse("measurements:show_measurements")
         )
