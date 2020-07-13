@@ -11,6 +11,10 @@
   <meta name="description"
     content="Łatwy sposób na prowadzenie dziennika pomiarów ciśnienia. Monituoruj swoje pomiary, twórz wykresy, udostępniaj wyniki swojemu lekarzowi.">
   <meta name="author" content="Jakub Wolak">
+  <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'favicon/android-icon-192x192.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96x96.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
 
   <title>
     {% block title %}
@@ -241,8 +245,8 @@
   <!-- Custom scripts for all pages-->
   <script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.1/js/sb-admin-2.min.js"></script>
 
-<!-- HOMEPAGE CHARTS Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <!-- HOMEPAGE CHARTS Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
   <script>
     {% block jquery %} {% endblock jquery %}
