@@ -2,11 +2,11 @@ from django.test import TestCase, Client
 
 from django.contrib.auth.models import User
 from your_health.models import UserData
-from your_health.views import UserDataCreate, UserDataUpdate
+from your_health.views import UserDataCreateView, UserDataUpdateView
 from django.shortcuts import reverse
 
 
-class UserDataCreateTest(TestCase):
+class UserDataCreateViewTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             username="username",
@@ -124,7 +124,7 @@ class UserDataCreateTest(TestCase):
         self.assertEqual(user.weight, 90)
 
 
-class UserDataUpdate(TestCase):
+class UserDataUpdateView(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             username="username",
