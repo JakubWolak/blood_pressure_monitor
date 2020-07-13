@@ -7,9 +7,9 @@ from .forms import UserDataForm
 from .models import UserData
 
 
-class UserDataCreate(LoginRequiredMixin, UserDataExistsMixin, CreateView):
-    template_name = 'your_health/add_userdata.html'
-    success_url = reverse_lazy('homepage:index')
+class UserDataCreateView(LoginRequiredMixin, UserDataExistsMixin, CreateView):
+    template_name = "your_health/add_userdata.html"
+    success_url = reverse_lazy("homepage:index")
 
     model = UserData
     form_class = UserDataForm
@@ -21,23 +21,23 @@ class UserDataCreate(LoginRequiredMixin, UserDataExistsMixin, CreateView):
         return super(UserDataCreate, self).form_valid(form)
 
 
-class UserDataUpdate(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
+class UserDataUpdateView(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
     model = UserData
     form_class = UserDataForm
 
-    template_name = 'your_health/add_userdata.html'
-    success_url = reverse_lazy('homepage:index')
+    template_name = "your_health/add_userdata.html"
+    success_url = reverse_lazy("homepage:index")
 
     def get_initial(self):
         initial = {}
 
         try:
             userdata = UserData.objects.get(user=self.request.user)
-            initial['name'] = userdata.name
-            initial['surname'] = userdata.surname
-            initial['sex'] = userdata.sex
-            initial['height'] = userdata.height
-            initial['weight'] = userdata.weight
+            initial["name"] = userdata.name
+            initial["surname"] = userdata.surname
+            initial["sex"] = userdata.sex
+            initial["height"] = userdata.height
+            initial["weight"] = userdata.weight
         except UserData.DoesNotExist as e:
             print(e)
             initial = {}
@@ -49,6 +49,5 @@ class UserDataUpdate(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
             obj = UserData.objects.get(user=self.request.user)
         except UserData.DoesNotExist:
             obj = None
-        
+
         return obj
-        
