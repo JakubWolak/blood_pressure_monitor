@@ -25,7 +25,7 @@ SECRET_KEY = "xy5=pxu8&g-y(0tuxa4515l=89@ztk=*c4sn26t42n^2-cb^9*"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["pressure-monitor.herokuapp.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -155,6 +155,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 
 import dj_database_url
+
 prod_db = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(prod_db)
 
