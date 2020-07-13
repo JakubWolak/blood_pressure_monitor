@@ -1,9 +1,13 @@
 from django.test import TestCase, Client
+
 from django.shortcuts import reverse
+
 
 from django.contrib.auth.models import User
 from your_health.models import UserData
 from measurements.models import Measurement
+
+from measurements.views import MeasurementCreateView, MeasurementTableView
 
 
 class CreateUserdata:
@@ -31,16 +35,6 @@ class CreateUserdata:
             weight=90,
         )
         return userdata
-
-    @classmethod
-    def create_measurement(self, userdata, s_press, d_press, pulse):
-        measurement = Measurement.objects.create(
-            userdata=userdata,
-            systolic_pressure=s_press,
-            diastolic_pressure=d_press,
-            pulse=pulse,
-        )
-        return measurement
 
 
 class MeausrementCreateViewTest(CreateUserdata, TestCase):
