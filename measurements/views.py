@@ -30,7 +30,7 @@ class MeasurementCreateView(LoginRequiredMixin, UserDataRequiredMixin, CreateVie
                 code="invalid",
             )
 
-        return super(MeasurementCreate, self).form_valid(form)
+        return super(MeasurementCreateView, self).form_valid(form)
 
 
 class MeasurementTableView(LoginRequiredMixin, UserDataRequiredMixin, SingleTableView):
