@@ -1,1 +1,1 @@
-web: gunicorn pressure_monitor/wsgi --log-file -
+web: gunicorn pressure_monitor.wsgi --log-file -
