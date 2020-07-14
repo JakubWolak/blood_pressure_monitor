@@ -18,7 +18,7 @@ class UserDataCreateView(LoginRequiredMixin, UserDataExistsMixin, CreateView):
         userdata = form.save(commit=False)
         userdata.user = self.request.user
 
-        return super(UserDataCreate, self).form_valid(form)
+        return super(UserDataCreateView, self).form_valid(form)
 
 
 class UserDataUpdateView(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
