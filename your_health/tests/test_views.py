@@ -198,11 +198,14 @@ class UserDataUpdateView(TestCase):
             {"sex": "sss", "weight": "weight",},
             follow=True,
         )
+        messages = list(response.context["messages"])
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.request["PATH_INFO"], reverse("your_health:edit_data")
         )
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Niepoprawnie wypełniony formularz")
 
     def test_view_when_valid_data_given(self):
         self.client.login(username="username", password="password")

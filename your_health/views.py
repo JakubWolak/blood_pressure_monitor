@@ -3,6 +3,7 @@ from your_health.mixins import UserDataRequiredMixin, UserDataExistsMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.shortcuts import redirect, reverse
 
 from .forms import UserDataForm
 from .models import UserData
@@ -65,3 +66,10 @@ class UserDataUpdateView(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
         )
 
         return super(UserDataUpdateView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        messages.add_message(
+            self.request, messages.WARNING, "Niepoprawnie wypełniony formularz"
+        )
+
+        return redirect(reverse("your_health:edit_data"))
