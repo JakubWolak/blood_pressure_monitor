@@ -99,6 +99,129 @@ class MeausrementCreateViewTest(CreateUserdata, TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), "Pomyślnie dodano pomiar")
 
+    def test_messages_invalid_systolic_pressure(self):
+        self.client.login(username="username", password="password")
+        userdata = self.create_userdata(self.user)
+        response = self.client.post(
+            reverse("measurements:add_measurement"),
+            {
+                "userdata": userdata,
+                "systolic_pressure": 131,
+                "diastolic_pressure": 80,
+                "pulse": 60,
+            },
+            follow=True,
+        )
+        messages = list(response.context["messages"])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.request["PATH_INFO"], reverse("measurements:show_measurements")
+        )
+        self.assertEqual(len(messages), 2)
+        self.assertEqual(
+            str(messages[1]), "Twoje ciśnienie skurczowe jest nieprawidłowe"
+        )
+
+        response = self.client.post(
+            reverse("measurements:add_measurement"),
+            {
+                "userdata": userdata,
+                "systolic_pressure": 89,
+                "diastolic_pressure": 80,
+                "pulse": 60,
+            },
+            follow=True,
+        )
+        messages = list(response.context["messages"])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.request["PATH_INFO"], reverse("measurements:show_measurements")
+        )
+        self.assertEqual(len(messages), 2)
+        self.assertEqual(
+            str(messages[1]), "Twoje ciśnienie skurczowe jest nieprawidłowe"
+        )
+
+    def test_messages_invalid_diastolic_pressure(self):
+        self.client.login(username="username", password="password")
+        userdata = self.create_userdata(self.user)
+        response = self.client.post(
+            reverse("measurements:add_measurement"),
+            {
+                "userdata": userdata,
+                "systolic_pressure": 120,
+                "diastolic_pressure": 96,
+                "pulse": 60,
+            },
+            follow=True,
+        )
+        messages = list(response.context["messages"])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.request["PATH_INFO"], reverse("measurements:show_measurements")
+        )
+        self.assertEqual(len(messages), 2)
+        self.assertEqual(
+            str(messages[1]), "Twoje ciśnienie rozkurczowe jest nieprawidłowe"
+        )
+
+        response = self.client.post(
+            reverse("measurements:add_measurement"),
+            {
+                "userdata": userdata,
+                "systolic_pressure": 120,
+                "diastolic_pressure": 69,
+                "pulse": 60,
+            },
+            follow=True,
+        )
+        messages = list(response.context["messages"])
+
+        self.assertEqual(len(messages), 2)
+        self.assertEqual(
+            str(messages[1]), "Twoje ciśnienie rozkurczowe jest nieprawidłowe"
+        )
+
+    def test_messages_invalid_pulse(self):
+        self.client.login(username="username", password="password")
+        userdata = self.create_userdata(self.user)
+        response = self.client.post(
+            reverse("measurements:add_measurement"),
+            {
+                "userdata": userdata,
+                "systolic_pressure": 120,
+                "diastolic_pressure": 80,
+                "pulse": 81,
+            },
+            follow=True,
+        )
+        messages = list(response.context["messages"])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.request["PATH_INFO"], reverse("measurements:show_measurements")
+        )
+        self.assertEqual(len(messages), 2)
+        self.assertEqual(str(messages[1]), "Twoje tętno jest nieprawidłowe")
+
+        response = self.client.post(
+            reverse("measurements:add_measurement"),
+            {
+                "userdata": userdata,
+                "systolic_pressure": 120,
+                "diastolic_pressure": 80,
+                "pulse": 81,
+            },
+            follow=True,
+        )
+        messages = list(response.context["messages"])
+
+        self.assertEqual(len(messages), 2)
+        self.assertEqual(str(messages[1]), "Twoje tętno jest nieprawidłowe")
+
 
 class MeasurementTableView(CreateUserdata, TestCase):
     def setUp(self):

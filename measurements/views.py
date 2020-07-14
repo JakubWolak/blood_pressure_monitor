@@ -11,9 +11,37 @@ from .forms import MeasurementCreateForm
 from .tables import MeasurementTable
 from your_health.mixins import UserDataRequiredMixin
 from your_health.models import UserData
+from measurements.pressure_values import *
 
 
 class MeasurementCreateView(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
+    @classmethod
+    def check_measuremnt_validity(self, obj, form):
+        data = form.cleaned_data
+
+        if (
+            data["systolic_pressure"] < systolic_pressure["min"]
+            or data["systolic_pressure"] > systolic_pressure["max"]
+        ):
+            messages.add_message(
+                obj.request,
+                messages.WARNING,
+                "Twoje ciśnienie skurczowe jest nieprawidłowe",
+            )
+        if (
+            data["diastolic_pressure"] < diastolic_pressure["min"]
+            or data["diastolic_pressure"] > diastolic_pressure["max"]
+        ):
+            messages.add_message(
+                obj.request,
+                messages.WARNING,
+                "Twoje ciśnienie rozkurczowe jest nieprawidłowe",
+            )
+        if data["pulse"] < pulse["min"] or data["pulse"] > pulse["max"]:
+            messages.add_message(
+                obj.request, messages.WARNING, "Twoje tętno jest nieprawidłowe"
+            )
+
     template_name = "measurements/measurement_create.html"
     success_url = reverse_lazy("measurements:show_measurements")
 
@@ -31,6 +59,7 @@ class MeasurementCreateView(LoginRequiredMixin, UserDataRequiredMixin, CreateVie
                 code="invalid",
             )
         messages.add_message(self.request, messages.INFO, "Pomyślnie dodano pomiar")
+        self.check_measuremnt_validity(self, form)
 
         return super(MeasurementCreateView, self).form_valid(form)
 
