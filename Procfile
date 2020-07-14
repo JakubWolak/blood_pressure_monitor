@@ -1,1 +1,1 @@
-web: gunicorn pressure_monitor:wsgi
+web gunicorn pressure_monitor:wsgi
