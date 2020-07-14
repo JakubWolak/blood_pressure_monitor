@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -36,8 +36,10 @@ class MeasurementCreateView(LoginRequiredMixin, UserDataRequiredMixin, CreateVie
 
     def form_invalid(self, form):
         messages.add_message(
-            self.request, messages.ERROR, "Niepoprawnie wypełniony formularz"
+            self.request, messages.WARNING, "Niepoprawnie wypełniony formularz"
         )
+
+        return redirect(reverse("measurements:add_measurement"))
 
 
 class MeasurementTableView(LoginRequiredMixin, UserDataRequiredMixin, SingleTableView):
