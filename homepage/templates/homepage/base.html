@@ -147,15 +147,19 @@
       <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
+        <nav class="navbar navbar-expand navbar-light mb-4 bg-white topbar static-top shadow">
 
           <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
+            {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible align-middle flex mt-3" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Zamknij"><span aria-hidden="true">&times;</span></button>
+                    {{ message }}
+                  </div>
+                {% endfor %}
+            {% endif %}
+            
+            <ul class="navbar-nav ml-auto">
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">

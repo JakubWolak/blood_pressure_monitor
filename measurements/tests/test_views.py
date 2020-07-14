@@ -56,6 +56,7 @@ class MeausrementCreateViewTest(CreateUserdata, TestCase):
     def test_displaying_data_when_logged_in_without_userdata(self):
         self.client.login(username="username", password="password")
         response = self.client.get(reverse("measurements:add_measurement"), follow=True)
+        messages = list(response.context["messages"])
 
         self.assertEqual(
             response.redirect_chain[0][0], "/your_health/add_data",
@@ -63,6 +64,8 @@ class MeausrementCreateViewTest(CreateUserdata, TestCase):
         self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.request["PATH_INFO"], reverse("your_health:add_data"))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Uzupełnij swoje dane")
 
     def test_displaying_data_when_logged_in_with_userdata(self):
         self.client.login(username="username", password="password")
@@ -73,6 +76,28 @@ class MeausrementCreateViewTest(CreateUserdata, TestCase):
         self.assertEqual(
             response.request["PATH_INFO"], reverse("measurements:add_measurement")
         )
+
+    def test_messages_when_new_measurement_added(self):
+        self.client.login(username="username", password="password")
+        userdata = self.create_userdata(self.user)
+        response = self.client.post(
+            reverse("measurements:add_measurement"),
+            {
+                "userdata": userdata,
+                "systolic_pressure": 120,
+                "diastolic_pressure": 80,
+                "pulse": 60,
+            },
+            follow=True,
+        )
+        messages = list(response.context["messages"])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.request["PATH_INFO"], reverse("measurements:show_measurements")
+        )
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Pomyślnie dodano pomiar")
 
 
 class MeasurementTableView(CreateUserdata, TestCase):
@@ -96,6 +121,7 @@ class MeasurementTableView(CreateUserdata, TestCase):
     def test_displaying_data_when_logged_in_without_userdata(self):
         self.client.login(username="username", password="password")
         response = self.client.get(reverse("measurements:add_measurement"), follow=True)
+        messages = list(response.context["messages"])
 
         self.assertEqual(
             response.redirect_chain[0][0], "/your_health/add_data",
@@ -103,6 +129,8 @@ class MeasurementTableView(CreateUserdata, TestCase):
         self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.request["PATH_INFO"], reverse("your_health:add_data"))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Uzupełnij swoje dane")
 
     def test_displaying_data_when_logged_in_with_userdata(self):
         self.client.login(username="username", password="password")

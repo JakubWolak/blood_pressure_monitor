@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.core.exceptions import ValidationError
 from django_tables2 import SingleTableView
+from django.contrib import messages
 
 from .models import Measurement
 from .forms import MeasurementCreateForm
@@ -29,8 +30,16 @@ class MeasurementCreateView(LoginRequiredMixin, UserDataRequiredMixin, CreateVie
                 _("Nie uzupełniono szczegółowych danych dla zalogowanego użytkownika"),
                 code="invalid",
             )
+        messages.add_message(self.request, messages.INFO, "Pomyślnie dodano pomiar")
 
         return super(MeasurementCreateView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        messages.add_message(
+            self.request, messages.WARNING, "Niepoprawnie wypełniony formularz"
+        )
+
+        return redirect(reverse("measurements:add_measurement"))
 
 
 class MeasurementTableView(LoginRequiredMixin, UserDataRequiredMixin, SingleTableView):
