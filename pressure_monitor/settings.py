@@ -136,7 +136,7 @@ STATIC_URL = "homepage/static/"
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "homepage/static")]
 
-STATICFILES_STORAGE = "whitenoise.django.GzipManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # ALLAUTH
