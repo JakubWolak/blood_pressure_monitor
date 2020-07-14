@@ -140,6 +140,11 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+# MESSAGES FRAMEWORK
+MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+
+
+# ALLAUTH SETTINGS
 SITE_ID = 1
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
