@@ -74,6 +74,28 @@ class MeausrementCreateViewTest(CreateUserdata, TestCase):
             response.request["PATH_INFO"], reverse("measurements:add_measurement")
         )
 
+    def test_messages_when_new_measurement_added(self):
+        self.client.login(username="username", password="password")
+        userdata = self.create_userdata(self.user)
+        response = self.client.post(
+            reverse("measurements:add_measurement"),
+            {
+                "userdata": userdata,
+                "systolic_pressure": 120,
+                "diastolic_pressure": 80,
+                "pulse": 60,
+            },
+            follow=True,
+        )
+        messages = list(response.context["messages"])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.request["PATH_INFO"], reverse("measurements:show_measurements")
+        )
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Pomyślnie dodano pomiar")
+
 
 class MeasurementTableView(CreateUserdata, TestCase):
     def setUp(self):
