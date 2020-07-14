@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "xy5=pxu8&g-y(0tuxa4515l=89@ztk=*c4sn26t42n^2-cb^9*"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["pressure-monitor.herokuapp.com", "localhost", "127.0.0.1"]
 
