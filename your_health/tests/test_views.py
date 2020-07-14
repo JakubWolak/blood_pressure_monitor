@@ -110,6 +110,7 @@ class UserDataCreateViewTest(TestCase):
             },
             follow=True,
         )
+        messages = list(response.context["messages"])
 
         user = UserData.objects.get(user=self.user)
 
@@ -122,6 +123,8 @@ class UserDataCreateViewTest(TestCase):
         self.assertEqual(user.sex, "male")
         self.assertEqual(user.height, 190)
         self.assertEqual(user.weight, 90)
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Pomyślnie zaktualizowano dane")
 
 
 class UserDataUpdateView(TestCase):
@@ -215,6 +218,7 @@ class UserDataUpdateView(TestCase):
             },
             follow=True,
         )
+        messages = list(response.context["messages"])
 
         userdata = UserData.objects.get(user=self.user)
 
@@ -227,4 +231,6 @@ class UserDataUpdateView(TestCase):
         self.assertEqual(userdata.sex, "female")
         self.assertEqual(userdata.height, 191)
         self.assertEqual(userdata.weight, 91)
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Pomyślnie zaktualizowano dane")
 

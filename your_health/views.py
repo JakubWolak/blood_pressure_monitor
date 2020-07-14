@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from your_health.mixins import UserDataRequiredMixin, UserDataExistsMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from .forms import UserDataForm
 from .models import UserData
@@ -17,6 +18,10 @@ class UserDataCreateView(LoginRequiredMixin, UserDataExistsMixin, CreateView):
     def form_valid(self, form):
         userdata = form.save(commit=False)
         userdata.user = self.request.user
+
+        messages.add_message(
+            self.request, messages.INFO, "Pomyślnie zaktualizowano dane"
+        )
 
         return super(UserDataCreateView, self).form_valid(form)
 
@@ -51,3 +56,12 @@ class UserDataUpdateView(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
             obj = None
 
         return obj
+
+    def form_valid(self, form):
+        userdata = form.save()
+
+        messages.add_message(
+            self.request, messages.INFO, "Pomyślnie zaktualizowano dane"
+        )
+
+        return super(UserDataUpdateView, self).form_valid(form)
