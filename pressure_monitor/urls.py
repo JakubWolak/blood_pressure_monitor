@@ -29,5 +29,5 @@ urlpatterns = [
     # measurements app
     path("measurements/", include("measurements.urls")),
     # generate_files app
-    path("generate_files/", include("generate_files.urls")),
+    # path("generate_files/", include("generate_files.urls")),
 ]

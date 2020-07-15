@@ -135,9 +135,11 @@ USE_TZ = True
 
 STATIC_URL = "homepage/static/"
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "homepage/static")]
+# STATIC_ROOT = os.path.join(BASE_DIR)
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "homepage/static")]
+
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # ALLAUTH
