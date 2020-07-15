@@ -18,19 +18,16 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
+    path("admin/", admin.site.urls),
     # allauth
-    path('accounts/', include('allauth.urls')),
-
-
+    path("accounts/", include("allauth.urls")),
     # custom blood_pressure_monitor urls
     # homepage app
-    path('', include('homepage.urls')),
-
+    path("", include("homepage.urls")),
     # your_health app
-    path('your_health/', include('your_health.urls')),
-
+    path("your_health/", include("your_health.urls")),
     # measurements app
-    path('measurements/', include('measurements.urls')),
+    path("measurements/", include("measurements.urls")),
+    # generate_files app
+    path("generate_files/", include("generate_files.urls")),
 ]
