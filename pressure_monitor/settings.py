@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "your_health",
     "homepage",
     "measurements",
+    "generate_files",
     # authentication
     "allauth",
     "allauth.account",
