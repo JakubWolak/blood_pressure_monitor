@@ -10,8 +10,8 @@ class GenerateFilesMenuView(LoginRequiredMixin, UserDataRequiredMixin, TemplateV
 
 
 class GeneratePDFView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):
-    pass
+    template_name = "generate_files/menu.html"
 
 
 class GenerateCSVView(LoginRequiredMixin, UserDataRequiredMixin, TemplateView):
-    pass
+    template_name = "generate_files/menu.html"
