@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Dziennik pomiarów ciśnienia
+Dziennik pomiarów ciśnienia
 {% endblock title %}
 
 {% block content %}
@@ -10,144 +10,144 @@
 <!-- HOMEPAGE CHARTS Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Strona główna</h1>
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Strona główna</h1>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+
+  <!-- ADD MEASUREMENT Card -->
+  <div class="col-xl-3 col-md-6 mb-4" onclick="window.location='{% url 'measurements:add_measurement' %}';">
+    <div class="card border-left-primary shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">TWOJE POMIARY</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">DODAJ NOWY POMIAR</div>
           </div>
+          <div class="col-auto">
+            <i class="fas fa-check fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          <!-- Content Row -->
-          <div class="row">
+  <!-- MEASUREMENTS' DETAILS Card -->
+  <div class="col-xl-3 col-md-6 mb-4" onclick="window.location='{% url 'measurements:show_measurements' %}';">
+    <div class="card border-left-success shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">TWOJE POMIARY</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">WSZYSTKIE POMIARY</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-align-left fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <!-- ADD MEASUREMENT Card -->
-            <div class="col-xl-3 col-md-6 mb-4" onclick="window.location='{% url 'measurements:add_measurement' %}';">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">TWOJE POMIARY</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">DODAJ NOWY POMIAR</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-check fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- MEASUREMENTS' DETAILS Card -->
-            <div class="col-xl-3 col-md-6 mb-4" onclick="window.location='{% url 'measurements:show_measurements' %}';">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">TWOJE POMIARY</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">WSZYSTKIE POMIARY</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-align-left fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- SEND MEASUREMENTS Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">TWÓJ LEKARZ</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">WYŚLIJ POMIARY</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-share fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- GENERATE STATISTICS Card -->
-            <div class="col-xl-3 col-md-6 mb-4" onclick="window.location='{% url 'generate_files:menu' %}';">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">TWOJE STATYSTYKI</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">GENERUJ PLIK</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
+  <!-- SEND MEASUREMENTS Card -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">TWÓJ LEKARZ</div>
+            <div class="row no-gutters align-items-center">
+              <div class="col-auto">
+                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">WYŚLIJ POMIARY</div>
               </div>
             </div>
           </div>
-
-          <!-- Content Row -->
-
-          <div class="row">
-
-            <!-- Area Chart -->
-            <div class="col-xl-4 col-lg-12" onclick="window.location='{% url 'homepage:systolic_pressure' %}';">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Ciśnienie skurczowe</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area h-100">
-                    <canvas id="systolic_pressure" width='100%'></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Area Chart -->
-            <div class="col-xl-4 col-lg-12" onclick="window.location='{% url 'homepage:diastolic_pressure' %}';">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Ciśnienie rozkurczowe</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area h-100">
-                    <canvas id="diastolic_pressure" width='100%'></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Area Chart -->
-            <div class="col-xl-4 col-lg-12" onclick="window.location='{% url 'homepage:pulse' %}';">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tętno</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area h-100">
-                    <canvas id="pulse" width='100%'></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="col-auto">
+            <i class="fas fa-share fa-2x text-gray-300"></i>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERATE STATISTICS Card -->
+  <div class="col-xl-3 col-md-6 mb-4" onclick="window.location='{% url 'generate_files:menu' %}';">
+    <div class="card border-left-warning shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">TWOJE STATYSTYKI</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">GENERUJ PLIK</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-comments fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Content Row -->
+
+<div class="row">
+
+  <!-- Area Chart -->
+  <div class="col-xl-4 col-lg-12" onclick="window.location='{% url 'homepage:systolic_pressure' %}';">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Ciśnienie skurczowe</h6>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="chart-area h-100">
+          <canvas id="systolic_pressure" width='100%'></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Area Chart -->
+  <div class="col-xl-4 col-lg-12" onclick="window.location='{% url 'homepage:diastolic_pressure' %}';">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Ciśnienie rozkurczowe</h6>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="chart-area h-100">
+          <canvas id="diastolic_pressure" width='100%'></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Area Chart -->
+  <div class="col-xl-4 col-lg-12" onclick="window.location='{% url 'homepage:pulse' %}';">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Tętno</h6>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="chart-area h-100">
+          <canvas id="pulse" width='100%'></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
 
 <!-- HOMEPAGE CHARTS Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
 <script type="module">
   {% block jquery %}
