@@ -1,0 +1,54 @@
+{% extends 'homepage/base.html' %}
+
+{% block title %}
+Wyniki pomiarów
+{% endblock title %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Generuj plik z wynikami pomiarów</h1>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Plik w formacie PDF
+                </h6>
+            </div>
+            <div class="card-body">
+                <p>
+                    Wygeneruj plik w formacie PDF, jest to popularny format, obsługiwany przez większość przeglądarek
+                </p>
+                <a href="{% url 'generate_files:generate_pdf' %}" class="btn btn-success btn-icon-split btn-lg">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Pobierz tabelę w formacie PDF</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Plik w formacie CSV
+                </h6>
+            </div>
+            <div class="card-body">
+                <p>
+                    Wygeneruj plik w formacie CSV, jest to format obsługiwany przez arkusze kalkulacyjne
+                </p>
+                <a href="{% url 'generate_files:generate_csv' %}" class="btn btn-primary btn-icon-split btn-lg">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Pobierz dane w formacie CSV</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

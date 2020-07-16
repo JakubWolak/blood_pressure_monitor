@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+
 from django.shortcuts import reverse
 
 from django.contrib.auth.models import User
@@ -35,7 +36,7 @@ class CreateUserData:
 
 class GenerateFilesMenuView(CreateUserData, TestCase):
     def setUp(self):
-        self.user = self.create_user
+        self.user = self.create_user()
 
         self.client = Client()
 
@@ -43,9 +44,9 @@ class GenerateFilesMenuView(CreateUserData, TestCase):
         response = self.client.get(reverse("generate_files:menu"), follow=True)
 
         self.assertEqual(
-            response.redirect_chain[0][0], "accounts/login/?next=/generate_files/menu"
+            response.redirect_chain[0][0], "/accounts/login/?next=/generate_files/menu"
         )
-        self.assertEqual(response.redirect_chain[0][0], 302)
+        self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
 
     def test_displaying_data_when_logged_in_without_userdata(self):
@@ -70,7 +71,7 @@ class GenerateFilesMenuView(CreateUserData, TestCase):
 
 class GeneratePDFViewTest(CreateUserData, TestCase):
     def setUp(self):
-        self.user = self.create_user
+        self.user = self.create_user()
 
         self.client = Client()
 
@@ -79,9 +80,9 @@ class GeneratePDFViewTest(CreateUserData, TestCase):
 
         self.assertEqual(
             response.redirect_chain[0][0],
-            "accounts/login/?next=/generate_files/generate_pdf",
+            "/accounts/login/?next=/generate_files/generate_pdf",
         )
-        self.assertEqual(response.redirect_chain[0][0], 302)
+        self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
 
     def test_displaying_data_when_logged_in_without_userdata(self):
@@ -102,13 +103,13 @@ class GeneratePDFViewTest(CreateUserData, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.request["PATH_INFO"], reverse("generate_files:generate_pdf")
+            response.request["PATH_INFO"], reverse("generate_files:generate_pdf"),
         )
 
 
 class GenerateCSVViewTest(CreateUserData, TestCase):
     def setUp(self):
-        self.user = self.create_user
+        self.user = self.create_user()
 
         self.client = Client()
 
@@ -117,9 +118,9 @@ class GenerateCSVViewTest(CreateUserData, TestCase):
 
         self.assertEqual(
             response.redirect_chain[0][0],
-            "accounts/login/?next=/generate_files/generate_csv",
+            "/accounts/login/?next=/generate_files/generate_csv",
         )
-        self.assertEqual(response.redirect_chain[0][0], 302)
+        self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
 
     def test_displaying_data_when_logged_in_without_userdata(self):
