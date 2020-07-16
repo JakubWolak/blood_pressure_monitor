@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+
 from django.shortcuts import reverse
 
 from django.contrib.auth.models import User
@@ -70,7 +71,7 @@ class GenerateFilesMenuView(CreateUserData, TestCase):
 
 class GeneratePDFViewTest(CreateUserData, TestCase):
     def setUp(self):
-        self.user = self.create_user
+        self.user = self.create_user()
 
         self.client = Client()
 
@@ -108,7 +109,7 @@ class GeneratePDFViewTest(CreateUserData, TestCase):
 
 class GenerateCSVViewTest(CreateUserData, TestCase):
     def setUp(self):
-        self.user = self.create_user
+        self.user = self.create_user()
 
         self.client = Client()
 
