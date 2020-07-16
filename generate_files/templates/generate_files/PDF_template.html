@@ -1,0 +1,49 @@
+<style>
+table, th, td {
+    font-size: 14px;
+}
+thead {
+    background-color: #f2f2f2;
+}
+th, td {
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 4px;
+    vertical-align: bottom;
+    border-bottom: 1px solid #ddd;
+}
+h1 {
+    font-size: 18px;
+}
+</style>
+
+
+<body>
+    <div id="wrapper">
+        <h1>Tabela pomiarow cisnienia dla uzytkownika: {{user.get_full_name|capfirst}}</h1>
+        <table class="table" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <th>Lp.</th>
+                    <th>Cisnienie skurczowe</th>
+                    <th>Cisnienie rozkurczowe</th>
+                    <th>Tetno</th>
+                    <th>Data pomiaru</th>
+                </tr>
+            </thead>
+            <tbody> 
+            {% for measurement in measurements %}
+                <tr>
+                    <td class="lalign"> {{forloop.counter}}
+                    <td>{{measurement.systolic_pressure}}</td>
+                    <td>{{measurement.diastolic_pressure}}</td>
+                    <td>{{measurement.pulse}}</td>
+                    <td>{{measurement.measurement_time|date:"H:i"}}  {{measurement.measurement_time|date:"d.m.y"}}</td>
+                </tr> 
+                {% empty %}
+                Brak pomiarów
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
