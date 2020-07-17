@@ -21,7 +21,6 @@ class GeneratePDFView(LoginRequiredMixin, UserDataRequiredMixin, PDFTemplateView
 
     def get_context_data(self, **kwargs):
         measurements = Measurement.queryset_for_user(self, self.request.user)
-        print(measurements)
 
         return super(GeneratePDFView, self).get_context_data(
             pagesize="A4", measurements=measurements
