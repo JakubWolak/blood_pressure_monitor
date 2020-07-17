@@ -118,17 +118,6 @@ class GeneratePDFViewTest(CreateUserData, TestCase):
             response.request["PATH_INFO"], reverse("generate_files:generate_pdf"),
         )
 
-    def test_generating_pdf_file(self):
-        self.client.login(username="username", password="password")
-        userdata = self.create_userdata(self.user)
-        measurement = self.create_measurement(userdata)
-        response = self.client.get(reverse("generate_files:generate_pdf"), follow=True)
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.request["PATH_INFO"], reverse("generate_files:generate_csv")
-        )
-
 
 class GenerateCSVViewTest(CreateUserData, TestCase):
     def setUp(self):
