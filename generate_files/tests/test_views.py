@@ -1,4 +1,6 @@
 from django.test import TestCase, Client
+import csv
+import io
 
 from django.shortcuts import reverse
 
@@ -32,6 +34,16 @@ class CreateUserData:
             weight=90,
         )
         return userdata
+
+    @classmethod
+    def create_measurement(self, userdata):
+        measurement = Measurement.objects.create(
+            userdata=userdata, systolic_pressure=120, diastolic_pressure=80, pulse=60,
+        )
+        return measurement
+
+    class Meta:
+        abstract = True
 
 
 class GenerateFilesMenuView(CreateUserData, TestCase):
@@ -144,3 +156,27 @@ class GenerateCSVViewTest(CreateUserData, TestCase):
             response.request["PATH_INFO"], reverse("generate_files:generate_csv")
         )
 
+    def test_generating_csv_file(self):
+        self.client.login(username="username", password="password")
+        userdata = self.create_userdata(self.user)
+        measurement = self.create_measurement(userdata)
+        response = self.client.get(reverse("generate_files:generate_csv"), follow=True)
+
+        content = response.content.decode("utf-8")
+        cvs_reader = csv.reader(io.StringIO(content))
+        body = list(cvs_reader)
+        headers = body.pop(0)
+        headers += body.pop(0)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.request["PATH_INFO"], reverse("generate_files:generate_csv")
+        )
+        self.assertContains(response, "Lp.")
+        self.assertContains(response, "Ciśnienie skurczowe")
+        self.assertContains(response, "Ciśnienie rozkurczowe")
+        self.assertContains(response, "Tętno")
+        self.assertContains(response, "Data pomiaru")
+        self.assertContains(response, 120)
+        self.assertContains(response, 80)
+        self.assertContains(response, 60)
