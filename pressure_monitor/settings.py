@@ -42,12 +42,13 @@ INSTALLED_APPS = [
     "bootstrap4",
     "rest_framework",
     "django_tables2",
+    "easy_pdf",
     # custom blood_pressure_monitor apps
     "your_health",
     "homepage",
     "measurements",
     "generate_files",
-    "easy_pdf",
+    "your_doctor",
     # authentication
     "allauth",
     "allauth.account",

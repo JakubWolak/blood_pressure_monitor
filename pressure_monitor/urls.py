@@ -30,4 +30,6 @@ urlpatterns = [
     path("measurements/", include("measurements.urls")),
     # generate_files app
     path("generate_files/", include("generate_files.urls")),
+    # your_doctor app
+    path("your_doctor/", include("your_doctor.urls")),
 ]
