@@ -1,0 +1,48 @@
+{% extends 'homepage/base.html' %}
+
+{% block content %}
+<div class="col-lg-6 col-sm-12">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Zmień dane swojego lekarza</h6>
+        </div>
+        <div class="card-body">
+            <!-- Card Body -->
+            <form class='user' method='POST'>
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                <div class='form-group'>
+                    {% for error in form.name.errors %}
+                        {{ error }}
+                    {% endfor %}
+
+                    <label for="name" class="col-form-label">Imię:</label>
+                    {{ form.name }}
+                </div>
+
+                <div class='form-group'>
+                    {% for error in form.surname.errors %}
+                        {{ error }}
+                    {% endfor %}
+
+                    <label for="surname" class="col-form-label">Nazwisko:</label>
+                    {{ form.surname }}
+                </div>
+
+                <div class='form-group'>
+                    {% for error in form.email.errors %}
+                        {{ error }}
+                    {% endfor %}
+
+                    <label for="email" class="col-form-label">Email:</label>
+                    {{ form.email }}
+                  </div>
+                  
+                  <button type='submit' class='btn btn-primary btn-user btn-block'>Zapisz dane</button>
+            </form>
+         </div>
+    </div>
+</div>
+{% endblock content %}
