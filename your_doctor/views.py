@@ -24,7 +24,7 @@ class DoctorDataCreateView(LoginRequiredMixin, UserDataRequiredMixin, CreateView
         doctordata.userdata = userdata
 
         messages.add_message(
-            self.requets, messages.INFO, "Pomyślnie zaktualizowano dane"
+            self.request, messages.INFO, "Pomyślnie zaktualizowano dane lekarza"
         )
 
         return super(DoctorDataCreateView, self).form_valid(form)
@@ -34,7 +34,7 @@ class DoctorDataUpdateView(LoginRequiredMixin, UserDataRequiredMixin, UpdateView
     model = DoctorData
     form_class = DoctorDataForm
 
-    template_name = "your_doctor/add_data.html"
+    template_name = "your_doctor/add_doctordata.html"
     success_url = reverse_lazy("homepage:index")
 
     def get_initial(self):
@@ -65,7 +65,7 @@ class DoctorDataUpdateView(LoginRequiredMixin, UserDataRequiredMixin, UpdateView
         userdata = form.save()
 
         messages.add_message(
-            self.request, messages.INFO, "Pomyślnie zaktualizowano dane"
+            self.request, messages.INFO, "Pomyślnie zaktualizowano dane lekarza"
         )
 
         return super(DoctorDataUpdateView, self).form_valid(form)

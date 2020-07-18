@@ -135,7 +135,7 @@ class DoctorDataCreateViewTest(CreateUserData, TestCase):
         self.assertEqual(doctor.surname, "surname")
         self.assertEqual(doctor.email, "email@email.com")
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), "Pomyślnie zaktualizowano dane")
+        self.assertEqual(str(messages[0]), "Pomyślnie zaktualizowano dane lekarza")
 
 
 class DoctorDataUpdateViewTest(CreateUserData, TestCase):
@@ -220,4 +220,4 @@ class DoctorDataUpdateViewTest(CreateUserData, TestCase):
         self.assertEqual(doctor.surname, "surname1")
         self.assertEqual(doctor.sex, "email@email1.com")
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), "Pomyślnie zaktualizowano dane")
+        self.assertEqual(str(messages[0]), "Pomyślnie zaktualizowano dane lekarza")
