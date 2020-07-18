@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -31,7 +31,7 @@ class DoctorDataCreateView(LoginRequiredMixin, UserDataRequiredMixin, CreateView
 
 
 class DoctorDataUpdateView(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
-    model = Doctor
+    model = DoctorData
     form_class = DoctorDataForm
 
     template_name = "your_doctor/add_data.html"
@@ -41,6 +41,39 @@ class DoctorDataUpdateView(LoginRequiredMixin, UserDataRequiredMixin, UpdateView
         initial = {}
 
         try:
-            usserdata = UserData.objects.get(user=self.request.user)
+            userdata = UserData.objects.get(user=self.request.user)
+            doctordata = DoctorData.objects.get(userdata=userdata)
+            initial["name"] = doctordata.name
+            initial["surname"] = doctordata.surname
+            initial["email"] = doctordata.email
+        except DoctorData.DoesNotExist as e:
+            print(e)
+            initial = {}
 
+        return initial
+
+    def get_object(self):
+        try:
+            userdata = UserData.objects.get(user=self.request.user)
+            obj = DoctorData.objects.get(userdata=userdata)
+        except:
+            obj = None
+
+        return obj
+
+    def form_valid(self, form):
+        userdata = form.save()
+
+        messages.add_message(
+            self.request, messages.INFO, "Pomyślnie zaktualizowano dane"
+        )
+
+        return super(DoctorDataUpdateView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        messages.add_message(
+            self.request, messages.WARNING, "Niepoprawnie wypełniony formularz"
+        )
+
+        return redirect(reverse("your_doctor:edit_data"))
 
