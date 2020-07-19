@@ -182,6 +182,19 @@ class DoctorDataUpdateViewTest(CreateUserData, TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), "Uzupełnij swoje dane")
 
+    def test_redirect_and_messages_when_logged_in_with_userdata_without_doctordata(
+        self,
+    ):
+        self.client.login(username="username", password="password")
+        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+        userdata = self.create_userdata(self.user)
+        messages = list(response.context["messages"])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request["PATH_INFO"], reverse("your_doctor:add_data"))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Uzupełnij dane swojego lekarza")
+
     def test_view_when_invalid_data_given(self):
         self.client.login(username="username", password="password")
         userdata = self.create_userdata(self.user)

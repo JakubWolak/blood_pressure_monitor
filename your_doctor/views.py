@@ -5,13 +5,16 @@ from django.contrib import messages
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from your_health.mixins import UserDataRequiredMixin
+from your_doctor.mixins import DoctorDataExistsMixin, DoctorDataRequiredMixin
 
 from your_health.models import UserData
 from your_doctor.models import DoctorData
 from your_doctor.forms import DoctorDataForm
 
 
-class DoctorDataCreateView(LoginRequiredMixin, UserDataRequiredMixin, CreateView):
+class DoctorDataCreateView(
+    LoginRequiredMixin, UserDataRequiredMixin, DoctorDataExistsMixin, CreateView
+):
     template_name = "your_doctor/add_doctordata.html"
     success_url = reverse_lazy("homepage:index")
 
@@ -30,7 +33,9 @@ class DoctorDataCreateView(LoginRequiredMixin, UserDataRequiredMixin, CreateView
         return super(DoctorDataCreateView, self).form_valid(form)
 
 
-class DoctorDataUpdateView(LoginRequiredMixin, UserDataRequiredMixin, UpdateView):
+class DoctorDataUpdateView(
+    LoginRequiredMixin, UserDataRequiredMixin, DoctorDataRequiredMixin, UpdateView
+):
     model = DoctorData
     form_class = DoctorDataForm
 
