@@ -36,5 +36,5 @@ class DoctorDataExistsMixin:
         except:
             return super().dispatch(request, *args, **kwargs)
 
-        return redirect(reverse("your_doctor:add_data"))
+        return redirect(reverse("your_doctor:edit_data"))
 
