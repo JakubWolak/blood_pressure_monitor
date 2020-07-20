@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect, reverse
-from django.views.generic.edit import CreateView, UpdateView, FormView
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
 from django.contrib import messages
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from your_health.mixins import UserDataRequiredMixin
 from your_doctor.mixins import DoctorDataExistsMixin, DoctorDataRequiredMixin
+from your_doctor.send_email import send_email
 
 from your_health.models import UserData
 from your_doctor.models import DoctorData
+from measurements.models import Measurement
 from your_doctor.forms import DoctorDataForm
 
 
@@ -82,3 +85,46 @@ class DoctorDataUpdateView(
 
         return redirect(reverse("your_doctor:edit_data"))
 
+
+class SendDataToDoctorView(
+    LoginRequiredMixin, UserDataRequiredMixin, DoctorDataRequiredMixin, TemplateView
+):
+    """
+    renders simple view and sends data to doctor
+    """
+
+    template_name = "your_doctor/send_data.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SendDataToDoctorView, self).get_context_data(**kwargs)
+
+        try:
+            userdata = UserData.objects.get(user=self.request.user)
+            doctordata = DoctorData.objects.get(userdata=userdata)
+            context["doctor"] = doctordata
+        except:
+            context["doctor"] = None
+
+        return context
+
+    def post(self, *args, **kwargs):
+        try:
+            userdata = UserData.objects.get(user=self.request.user)
+            doctordata = DoctorData.objects.get(userdata=userdata)
+            measurements = Measurement.queryset_for_user(self, self.request.user)
+        except:
+            messages.add_message(
+                self.request, messages.WARNING, "Błąd pobierania danych"
+            )
+            return redirect(reverse("homepage:index"))
+
+        if send_email(self, self.request.user, userdata, doctordata, measurements):
+            messages.add_message(
+                self.request, messages.SUCCESS, "Pomyślnie wysłano email"
+            )
+        else:
+            messages.add_message(
+                self.request, messages.WARNING, "Nie udało się wysłać wiadomości"
+            )
+
+        return redirect(reverse("homepage:index"))

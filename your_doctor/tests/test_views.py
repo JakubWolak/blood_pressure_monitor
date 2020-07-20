@@ -249,3 +249,64 @@ class DoctorDataUpdateViewTest(CreateUserData, TestCase):
         self.assertEqual(doctor.email, "email@email1.com")
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), "Pomyślnie zaktualizowano dane lekarza")
+
+
+class SendDataToDoctorView(CreateUserData, TestCase):
+    def setUp(self):
+        self.user = self.create_user()
+
+        self.client = Client()
+
+    def test_redirect_when_logged_out(self):
+        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+
+        self.assertEqual(
+            response.redirect_chain[0][0],
+            "/accounts/login/?next=/your_doctor/edit_data",
+        )
+        self.assertEqual(response.redirect_chain[0][1], 302)
+        self.assertEqual(response.status_code, 200)
+
+    def test_context_data_when_logged_in_with_userdata(self):
+        self.client.login(username="username", password="password")
+        userdata = self.create_userdata(self.user)
+        doctordata = self.create_doctordata(userdata)
+        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+
+        self.assertEqual(response.context["user"], userdata)
+
+    def test_displaying_view_when_logged_in_with_userdata(self):
+        self.client.login(username="username", password="password")
+        userdata = self.create_userdata(self.user)
+        doctordata = self.create_doctordata(userdata)
+        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.request["PATH_INFO"], reverse("your_doctor:edit_data")
+        )
+
+    def test_redirect_and_messages_when_logged_in_without_userdata(self):
+        self.client.login(username="username", password="password")
+        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+        userdata = self.create_userdata(self.user)
+        doctordata = self.create_doctordata(userdata)
+        messages = list(response.context["messages"])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request["PATH_INFO"], reverse("your_health:add_data"))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Uzupełnij swoje dane")
+
+    def test_redirect_and_messages_when_logged_in_with_userdata_without_doctordata(
+        self,
+    ):
+        self.client.login(username="username", password="password")
+        userdata = self.create_userdata(self.user)
+        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+        messages = list(response.context["messages"])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request["PATH_INFO"], reverse("your_doctor:add_data"))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Uzupełnij dane swojego lekarza")
