@@ -1,0 +1,42 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+
+{% block title %}
+Wyślij pomiary do swojego lekarza
+{% endblock title %}
+
+{% block content %}
+
+<div class="col-lg-6 col-sm-12">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Wyślij pomiary do swojego lekarza</h6>
+        </div>
+        <div class="card-body">
+            <!-- Card Body -->
+            <p>Po wciśnięciu przycisku "Wyślij email" na adres twojego lekarza zostanie wysłany email z załącznikiem
+            zawierającym tabelę z wszystkimi pomiarami ciśnienia w formacie PDF
+            <form class='user' method='POST' action='{% url 'your_doctor:send_data' %}'>
+                {% csrf_token %}
+
+                <div class='form-group'>
+                    <label for="fullname" class="col-form-label">Imię i nazwisko lekarza:</label>
+                    <input type="text" name="fullname" value="{{ doctor.get_full_name }}" class="form-control form-control-user" readonly>
+                </div>
+
+                <div class='form-group'>
+                    <label for="diastolic_pressure" class="col-form-label">Adres email lekarza:</label>
+                    <input type="text" name="fullname" value="{{ doctor.email }}" class="form-control form-control-user" readonly>
+                </div>
+
+                <p>
+                Jeśli dane są poprawne, wciśnij przycisk aby wysłać.<br />
+                Jeśli chcesz wprowadzić zmiany, przejdź do <a href='{% url 'your_doctor:edit_data' %}' target='_self'>formularza edycji</a>.
+                </p>
+                <button type='submit' class='btn btn-primary btn-user btn-block'>Wyślij email</button>
+            </form>
+         </div>
+    </div>
+</div>
+
+{% endblock content %}

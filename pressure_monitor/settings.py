@@ -164,6 +164,16 @@ LOGIN_REDIRECT_URL = "homepage:index"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 
+# EMAIL CONFIG
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = "465"
+EMAIL_HOST_USER = "monitorblood@gmail.com"
+EMAIL_HOST_PASSWORD = "123blOOd"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+
 import dj_database_url
 
 prod_db = dj_database_url.config(conn_max_age=500)
