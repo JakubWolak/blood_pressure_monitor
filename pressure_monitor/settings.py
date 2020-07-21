@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "measurements",
     "generate_files",
     "your_doctor",
+    "generic",
     # authentication
     "allauth",
     "allauth.account",
