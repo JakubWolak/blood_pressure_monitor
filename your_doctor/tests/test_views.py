@@ -258,11 +258,11 @@ class SendDataToDoctorView(CreateUserData, TestCase):
         self.client = Client()
 
     def test_redirect_when_logged_out(self):
-        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+        response = self.client.get(reverse("your_doctor:send_data"), follow=True)
 
         self.assertEqual(
             response.redirect_chain[0][0],
-            "/accounts/login/?next=/your_doctor/edit_data",
+            "/accounts/login/?next=/your_doctor/send_data",
         )
         self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
@@ -271,7 +271,7 @@ class SendDataToDoctorView(CreateUserData, TestCase):
         self.client.login(username="username", password="password")
         userdata = self.create_userdata(self.user)
         doctordata = self.create_doctordata(userdata)
-        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+        response = self.client.get(reverse("your_doctor:send_data"), follow=True)
 
         self.assertEqual(response.context["user"], userdata)
 
@@ -279,16 +279,16 @@ class SendDataToDoctorView(CreateUserData, TestCase):
         self.client.login(username="username", password="password")
         userdata = self.create_userdata(self.user)
         doctordata = self.create_doctordata(userdata)
-        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+        response = self.client.get(reverse("your_doctor:send_data"), follow=True)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.request["PATH_INFO"], reverse("your_doctor:edit_data")
+            response.request["PATH_INFO"], reverse("your_doctor:send_data")
         )
 
     def test_redirect_and_messages_when_logged_in_without_userdata(self):
         self.client.login(username="username", password="password")
-        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+        response = self.client.get(reverse("your_doctor:send_data"), follow=True)
         userdata = self.create_userdata(self.user)
         doctordata = self.create_doctordata(userdata)
         messages = list(response.context["messages"])
@@ -303,10 +303,24 @@ class SendDataToDoctorView(CreateUserData, TestCase):
     ):
         self.client.login(username="username", password="password")
         userdata = self.create_userdata(self.user)
-        response = self.client.get(reverse("your_doctor:edit_data"), follow=True)
+        response = self.client.get(reverse("your_doctor:send_data"), follow=True)
         messages = list(response.context["messages"])
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.request["PATH_INFO"], reverse("your_doctor:add_data"))
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), "Uzupełnij dane swojego lekarza")
+
+    def test_sending_email_when_logged_in_with_userdata_with_doctordata(self):
+        self.client.login(username="username", password="password")
+        userdata = self.create_userdata(self.user)
+        doctordata = self.create_doctordata(userdata)
+        response = self.client.post(reverse("your_doctor:send_data"), follow=True)
+        messages = list(response.context["messages"])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request["PATH_INFO"], reverse("homepage:index"))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Pomyślnie wysłano email")
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Pomiary ciśnienia krwi")
