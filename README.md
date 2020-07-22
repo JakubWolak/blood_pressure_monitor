@@ -1,17 +1,20 @@
 # blood_pressure_monitor
-Prosta aplikacja służąca do sprawdzania oraz monitorowania swoich pomiarów ciśnień krwi
+Prosta aplikacja służąca do prowadzenia prostego dziennika pomiarów ciśnień krwi.
 
-## v0.1
-W początkowej wersji aplikacja ma umożliwiać użytkownikom:
+Główne możliwości:
 * dodawanie pomiarów ciśnienia
 * wyświetlanie dodanych pomiarów
 * wyświetlanie wykresów generowanych na postawie dodanych pomiarów
 * proste sprawdzanie poprawności pomiarów
+* generowanie plików w formatach PDF lub CSV z wprowadzonymi wcześniej danymi
+* podanie danych lekarza w celu ułatwienia późniejszego udostępniania swoich wyników
+* wysyłanie wprowadzonych pomiarów bezpośrednio do lekarza (jako załącznik w formacie PDF)
 
-## Dalsze cele
-- generowanie możliwych do pobrania wykresów oraz tabel z pomiarami
-- dodanie własnego lekarza
-- wysyłanie wprowadzonych pomiarów bezpośrednio do lekarza
+## Deploy:
+Aplikacja działa pod adresem:
+```bash
+https://pressure-monitor.herokuapp.com/
+```
 
 ## Instalacja i uruchomienie
 - Utwórz wirutalne środowisko
