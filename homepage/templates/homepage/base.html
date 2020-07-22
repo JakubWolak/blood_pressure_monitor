@@ -11,10 +11,10 @@
   <meta name="description"
     content="Łatwy sposób na prowadzenie dziennika pomiarów ciśnienia. Monituoruj swoje pomiary, twórz wykresy, udostępniaj wyniki swojemu lekarzowi.">
   <meta name="author" content="Jakub Wolak">
-  <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'favicon/android-icon-192x192.png' %}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
-  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96x96.png' %}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../{% static 'favicon/android-icon-192x192.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="../{% static 'favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="96x96" href="../{% static 'favicon/favicon-96x96.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="../{% static 'favicon/favicon-16x16.png' %}">
 
   <title>
     {% block title %}
@@ -42,8 +42,8 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-text mx-3">pressure_monitor <sup>v0.1</sup></div>
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'homepage:index' %}">
+        <div class="sidebar-brand-text mx-3">pressure_monitor <sup>v1.0</sup></div>
       </a>
 
       <!-- Divider -->
@@ -165,7 +165,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.get_full_name|title }}</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <img class="img-profile rounded-circle" src="../{% static '/favicon/picture.svg' %}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
