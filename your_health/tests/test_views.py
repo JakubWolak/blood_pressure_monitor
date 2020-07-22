@@ -1,40 +1,19 @@
 from django.test import TestCase, Client
 
+from generic.tests.test_views import ViewTestBase
+
 from django.contrib.auth.models import User
 from your_health.models import UserData
 from your_health.views import UserDataCreateView, UserDataUpdateView
 from django.shortcuts import reverse
 
 
-class UserDataCreateViewTest(TestCase):
+class UserDataCreateViewTest(ViewTestBase):
     def setUp(self):
-        self.user = User.objects.create_user(
-            username="username",
-            first_name="first_name",
-            last_name="last_name",
-            email="email@email.com",
-            password="password",
-            is_staff=False,
-            is_active=True,
-        )
-
+        self.user = self.create_user()
         self.client = Client()
 
-    def test_redirect_when_logged_out(self):
-        response = self.client.get(reverse("your_health:add_data"), follow=True)
-
-        self.assertEqual(
-            response.redirect_chain[0][0], "/accounts/login/?next=/your_health/add_data"
-        )
-        self.assertEqual(response.redirect_chain[0][1], 302)
-        self.assertEqual(response.status_code, 200)
-
-    def test_displaying_view_when_logged_in(self):
-        self.client.login(username="username", password="password")
-        response = self.client.get(reverse("your_health:add_data"), follow=True)
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.request["PATH_INFO"], reverse("your_health:add_data"))
+        self.view_name = "add_data"
 
     def test_view_when_invalid_data_given(self):
         self.client.login(username="username", password="password")
@@ -127,7 +106,7 @@ class UserDataCreateViewTest(TestCase):
         self.assertEqual(str(messages[0]), "Pomyślnie zaktualizowano dane")
 
 
-class UserDataUpdateView(TestCase):
+class UserDataUpdateViewTest(TestCase):
     @classmethod
     def create_userdata(self, user):
         userdata = UserData.objects.create(
