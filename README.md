@@ -5,7 +5,7 @@ Główne możliwości:
 * dodawanie pomiarów ciśnienia
 * wyświetlanie dodanych pomiarów
 * wyświetlanie wykresów generowanych na postawie dodanych pomiarów
-* proste sprawdzanie poprawności pomiarów
+* wyświetlanie ostrzeżeń gdy podane wartości znajdują się poza normami
 * generowanie plików w formatach PDF lub CSV z wprowadzonymi wcześniej danymi
 * podanie danych lekarza w celu ułatwienia późniejszego udostępniania swoich wyników
 * wysyłanie wprowadzonych pomiarów bezpośrednio do lekarza (jako załącznik w formacie PDF)
